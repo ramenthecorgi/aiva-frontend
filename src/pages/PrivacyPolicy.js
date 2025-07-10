@@ -3,37 +3,23 @@ import React from "react";
 const PrivacyPolicy = () => (
   <main className="max-w-2xl mx-auto py-20 px-6 text-gray-900 bg-white rounded-lg shadow-xl mt-16">
     <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
-    <p className="mb-4">Effective Date: July 9, 2025</p>
-    <p className="mb-4">At AskAiva, your privacy is our top priority. This Privacy Policy describes how we collect, use, and protect your information when you use our email assistant services. This policy is designed to comply with the privacy and sender verification requirements of leading email service providers such as Mailgun and Postmark.</p>
-    <h2 className="text-xl font-semibold mt-8 mb-2">1. Information We Collect</h2>
-    <ul className="list-disc ml-6 mb-4">
-      <li>Email addresses and basic profile information for account setup and sender verification, including name, organization, and domain ownership as required by Mailgun and Postmark.</li>
-      <li>Email content (subject, body, attachments) for processing, delivery, and compliance with anti-spam and lawful use requirements.</li>
-      <li>Usage data (device, browser, access times, interactions)</li>
-    </ul>
-    <h2 className="text-xl font-semibold mt-8 mb-2">2. How We Use Information</h2>
-    <ul className="list-disc ml-6 mb-4">
-      <li>To send, receive, and organize your email as requested</li>
-      <li>To improve our AI assistant’s performance and personalize your experience</li>
-      <li>To communicate important updates and service information</li>
-    </ul>
-    <h2 className="text-xl font-semibold mt-8 mb-2">3. Data Security</h2>
-    <p className="mb-4">We use industry-standard encryption and security practices to protect your data, both in transit and at rest. Access to your data is strictly limited to authorized personnel and systems.</p>
-    <h2 className="text-xl font-semibold mt-8 mb-2">4. Sharing & Disclosure</h2>
-    <ul className="list-disc ml-6 mb-4">
-      <li>We do <span className="font-bold">not</span> sell or share your personal information with third parties for marketing.</li>
-      <li>We may share data with trusted subprocessors for essential service delivery (e.g., email infrastructure providers such as Mailgun and Postmark), under strict confidentiality agreements. Sender identity and verification data may be shared as required to comply with anti-spam and sender authentication policies.</li>
-      <li>We may disclose information if required by law or to protect our rights and users.</li>
-    </ul>
-    <h2 className="text-xl font-semibold mt-8 mb-2">5. Your Choices</h2>
-    <ul className="list-disc ml-6 mb-4">
-      <li>You may request deletion of your data or account at any time by contacting support@askaiva.com.</li>
-      <li>You may opt out of non-essential communications.</li>
-    </ul>
-    <h2 className="text-xl font-semibold mt-8 mb-2">6. Changes to This Policy</h2>
-    <p className="mb-4">We may update this Privacy Policy to reflect changes in our practices. We will notify you of significant changes via email or in-app notification.</p>
-    <h2 className="text-xl font-semibold mt-8 mb-2">7. Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy, contact us at <a href="mailto:support@askaiva.com" className="text-blue-600 underline">support@askaiva.com</a>.</p>
+    <p className="mb-4">Last updated: July 9, 2025</p>
+    <p className="mb-4">This app is a prototype and is currently under development. It is not publicly launched or available for general use.</p>
+
+    <h2 className="text-xl font-semibold mt-8 mb-2">Information Collection</h2>
+    <p className="mb-4">We may collect limited information (such as email addresses) that users voluntarily provide for testing or demo purposes. No sensitive personal data is collected.</p>
+
+    <h2 className="text-xl font-semibold mt-8 mb-2">Use of Information</h2>
+    <p className="mb-4">Any collected information will be used solely for testing, product development, or communication regarding the app's progress. We do not sell, share, or use this data for marketing.</p>
+
+    <h2 className="text-xl font-semibold mt-8 mb-2">Data Storage & Security</h2>
+    <p className="mb-4">All data is stored securely and will be deleted upon request or when the prototype phase ends.</p>
+
+    <h2 className="text-xl font-semibold mt-8 mb-2">Third-Party Services</h2>
+    <p className="mb-4">This prototype may integrate with third-party services (e.g., email providers). We do not control the privacy practices of these providers.</p>
+
+    <h2 className="text-xl font-semibold mt-8 mb-2">Contact</h2>
+    <p>If you have any questions about this privacy policy, you can contact us at <a href="mailto:yue617687@gmail.com" className="text-blue-600 underline">yue617687@gmail.com</a>.</p>
   </main>
 );
 
