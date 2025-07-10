@@ -87,6 +87,7 @@ This project uses Tailwind CSS via CDN for simplicity. For production use, consi
 - `npm test` - Launches the test runner
 - `npm run build` - Builds the app for production
 
+
 ## Learn More
 
 - [React Documentation](https://reactjs.org/)
