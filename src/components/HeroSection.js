@@ -1,4 +1,5 @@
 import React from "react";
+import Typewriter from "typewriter-effect";
 
 const HeroSection = () => (
   <section className="pt-40 pb-24 text-center relative overflow-hidden">
@@ -8,9 +9,24 @@ const HeroSection = () => (
       <div className="absolute bottom-[30%] left-[20%] w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite] delay-[4s]" />
     </div>
     <div className="max-w-4xl mx-auto px-6 relative z-10">
-      <h1 className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white via-pink-500 via-purple-600 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(255,0,110,0.3)] animate-[titleGlow_3s_ease-in-out_infinite_alternate]">
-        Email Mastery.<br />Finally Achieved.
-      </h1>
+      <div className="mb-6 min-h-[7.5rem] md:min-h-[9.5rem] flex items-center justify-center">
+        <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-white via-pink-500 via-purple-600 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(255,0,110,0.3)] animate-[titleGlow_3s_ease-in-out_infinite_alternate]">
+          <span>
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter
+                  .typeString('Email Mastery.<br />Finally Achieved.')
+                  .pauseFor(1000000)
+                  .start();
+              }}
+              options={{
+                delay: 60,
+                html: true,
+              }}
+            />
+          </span>
+        </h1>
+      </div>
       <p className="text-lg md:text-xl text-white/90 font-light max-w-2xl mx-auto mb-10">
         Stop drowning in digital chaos. Aiva transforms your email experience with AI that thinks like your best executive assistant—only faster, smarter, and always available.
       </p>
