@@ -15,7 +15,7 @@ const SignupSection = () => (
           Start Revolution
         </button>
       </form>
-      <p className="text-sm text-white/70 mt-6">14-day free trial • No credit card required • Transform in minutes</p>
+      <p className="text-sm text-white/70 mt-6">No credit card required • Transform in minutes</p>
     </div>
   </section>
 );
