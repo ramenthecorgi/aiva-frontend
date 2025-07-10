@@ -25,7 +25,7 @@ const TermsOfService = () => (
     <p className="mb-4">By submitting feedback or suggestions, you grant us the right to use it to improve the product with no obligation to compensate you.</p>
 
     <h2 className="text-xl font-semibold mt-8 mb-2">7. Contact</h2>
-    <p>For questions or concerns, contact us at <a href="mailto:yue617687@gmail.com" className="text-blue-600 underline">yue617687@gmail.com</a>.</p>
+    <p>For questions or concerns, contact us at <a href="mailto:team@askaiva.app" className="text-blue-600 underline">team@askaiva.app</a>.</p>
   </main>
 );
 

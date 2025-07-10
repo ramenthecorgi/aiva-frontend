@@ -19,7 +19,7 @@ const PrivacyPolicy = () => (
     <p className="mb-4">This prototype may integrate with third-party services (e.g., email providers). We do not control the privacy practices of these providers.</p>
 
     <h2 className="text-xl font-semibold mt-8 mb-2">Contact</h2>
-    <p>If you have any questions about this privacy policy, you can contact us at <a href="mailto:yue617687@gmail.com" className="text-blue-600 underline">yue617687@gmail.com</a>.</p>
+    <p>If you have any questions about this privacy policy, you can contact us at <a href="mailto:team@askaiva.app" className="text-blue-600 underline">yue617687@gmail.com</a>.</p>
   </main>
 );
 
