@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import featureFlags from "../config/featureFlags";
 
 const Header = () => (
   <header className="fixed top-0 w-full z-50 bg-[rgba(10,10,10,0.8)] backdrop-blur-lg border-b border-white/10 transition-all">
@@ -7,10 +9,17 @@ const Header = () => (
         Aiva
       </div>
 
-      <a href="#signup" className="bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:translate-y-[-3px] hover:shadow-xl transition relative overflow-hidden">
-        <span className="absolute inset-0 left-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-500 hover:left-full" />
-        <span className="relative z-10">Get Started</span>
-      </a>
+      <div className="flex space-x-4">
+        {featureFlags.enableLogin && (
+          <Link to="/login" className="bg-transparent border border-purple-400 text-white font-medium py-2 px-6 rounded-full hover:bg-purple-500/10 transition-all">
+            Login
+          </Link>
+        )}
+        <a href="#signup" className="bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:translate-y-[-3px] hover:shadow-xl transition relative overflow-hidden">
+          <span className="absolute inset-0 left-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-500 hover:left-full" />
+          <span className="relative z-10">Get Started</span>
+        </a>
+      </div>
     </nav>
   </header>
 );

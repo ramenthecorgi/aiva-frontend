@@ -8,8 +8,10 @@ import PainpointsSection from './components/PainpointsSection';
 import AssistantSection from './components/AssistantSection';
 import SignupSection from './components/SignupSection';
 import Footer from './components/Footer';
+import Login from './pages/Login';
+import Home from './pages/Home';
 
-const InboxAI = () => {
+const LandingPage = () => {
   return (
     <>
       <div className="fixed inset-0 z-[-1] bg-[radial-gradient(circle_at_20%_50%,#ff006e_0%,transparent_50%),radial-gradient(circle_at_80%_20%,#8338ec_0%,transparent_50%),radial-gradient(circle_at_40%_80%,#3a86ff_0%,transparent_50%)] animate-[bgShift_15s_ease-in-out_infinite]" />
@@ -24,6 +26,10 @@ const InboxAI = () => {
   );
 };
 
-export default InboxAI;
+const App = () => {
+  return <LandingPage />;
+};
+
+export default App;
 
 // You will also need to define @keyframes like bgShift, float, shimmer, titleGlow, etc. in your Tailwind config under extend.animation and extend.keyframes.
