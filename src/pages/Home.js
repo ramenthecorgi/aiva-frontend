@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import HomeHeader from '../components/HomeHeader';
 import Footer from '../components/Footer';
 import BriefingsFeed from '../components/BriefingsFeed';
-import RulesManager from '../components/RulesManager';
+import TeachAiva from '../components/TeachAiva';
 import IntegrationsPanel from '../components/IntegrationsPanel';
 
 const Home = () => {
@@ -18,7 +18,7 @@ const Home = () => {
       case 'briefings':
         return <BriefingsFeed />;
       case 'rules':
-        return <RulesManager />;
+        return <TeachAiva />;
       case 'integrations':
         return <IntegrationsPanel />;
       default:

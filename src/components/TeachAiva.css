@@ -1,0 +1,48 @@
+/* TeachAiva.css - Styles for drag and drop functionality */
+
+.preference-item {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.preference-item.dragging {
+  z-index: 100;
+  opacity: 0.8;
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.preference-item.drag-over {
+  border-top: 2px solid #f59e0b;
+}
+
+.drag-handle {
+  cursor: grab;
+  padding: 2px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.drag-handle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+  background-color: rgba(245, 158, 11, 0.2);
+}
+
+/* Animation for when an item is dropped */
+@keyframes dropAnimation {
+  0% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to items when they're dropped */
+.preference-item:not(.dragging) {
+  animation: dropAnimation 0.3s ease;
+}
