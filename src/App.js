@@ -8,8 +8,6 @@ import PainpointsSection from './components/PainpointsSection';
 import AssistantSection from './components/AssistantSection';
 import SignupSection from './components/SignupSection';
 import Footer from './components/Footer';
-import Login from './pages/Login';
-import Home from './pages/Home';
 
 const LandingPage = () => {
   return (

@@ -1,0 +1,130 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+const HomeHeader = () => {
+  const [showNotifications, setShowNotifications] = useState(false);
+  
+  return (
+  <header className="fixed top-0 w-full z-50 bg-[rgba(10,10,10,0.8)] backdrop-blur-lg border-b border-white/10 transition-all">
+    <nav className="max-w-screen-xl mx-auto px-5 py-4 flex justify-between items-center">
+      <div className="text-2xl font-extrabold bg-gradient-to-r from-pink-500 via-purple-600 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,0,110,0.5)]">
+        Aiva
+      </div>
+
+      <div className="flex items-center space-x-5">
+        {/* Notification Icon with Dropdown */}
+        <div className="relative">
+          <button 
+            className="text-white/80 hover:text-white transition-colors relative"
+            onClick={() => setShowNotifications(!showNotifications)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+            <span className="absolute -top-1 -right-1 bg-pink-500 text-xs text-white rounded-full h-4 w-4 flex items-center justify-center">
+              3
+            </span>
+          </button>
+          
+          {/* Notification Dropdown */}
+          {showNotifications && (
+            <div className="absolute right-0 mt-2 w-80 bg-[rgba(20,20,20,0.9)] backdrop-blur-lg rounded-lg shadow-lg border border-white/10 z-50">
+              <div className="p-3 border-b border-white/10 flex justify-between items-center">
+                <p className="text-sm font-medium text-white">Notifications</p>
+                <button className="text-xs text-blue-400 hover:text-blue-300">Mark all as read</button>
+              </div>
+              <div className="max-h-80 overflow-y-auto">
+                {/* Notification Item 1 */}
+                <div className="p-3 border-b border-white/5 hover:bg-white/5 transition-colors">
+                  <div className="flex">
+                    <div className="h-8 w-8 rounded-full bg-purple-500 flex items-center justify-center text-white mr-3 flex-shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm text-white">New message from <span className="font-medium">Sarah</span></p>
+                      <p className="text-xs text-white/60 mt-1">Hey, how's the project going?</p>
+                      <p className="text-xs text-white/40 mt-1">2 minutes ago</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Notification Item 2 */}
+                <div className="p-3 border-b border-white/5 hover:bg-white/5 transition-colors">
+                  <div className="flex">
+                    <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3 flex-shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm text-white">Your task <span className="font-medium">"Design Review"</span> is complete</p>
+                      <p className="text-xs text-white/40 mt-1">1 hour ago</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Notification Item 3 */}
+                <div className="p-3 hover:bg-white/5 transition-colors">
+                  <div className="flex">
+                    <div className="h-8 w-8 rounded-full bg-pink-500 flex items-center justify-center text-white mr-3 flex-shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm text-white">Meeting reminder: <span className="font-medium">Team Standup</span></p>
+                      <p className="text-xs text-white/60 mt-1">Starts in 30 minutes</p>
+                      <p className="text-xs text-white/40 mt-1">Yesterday</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-2 border-t border-white/10">
+                <button className="w-full py-2 text-sm text-center text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors">
+                  View all notifications
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        {/* Settings Icon */}
+        <button className="text-white/80 hover:text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </button>
+        
+        {/* Account Icon */}
+        <div className="relative group">
+          <button className="flex items-center justify-center h-8 w-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold shadow-lg hover:shadow-xl transition">
+            <span>A</span>
+          </button>
+          <div className="absolute right-0 mt-2 w-48 bg-[rgba(20,20,20,0.9)] backdrop-blur-lg rounded-lg shadow-lg border border-white/10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200">
+            <div className="p-3 border-b border-white/10">
+              <p className="text-sm font-medium text-white">User Account</p>
+              <p className="text-xs text-white/60">user@example.com</p>
+            </div>
+            <div className="p-2">
+              <Link to="/profile" className="block px-4 py-2 text-sm text-white/80 hover:bg-white/10 rounded-md transition-colors">
+                Profile
+              </Link>
+              <Link to="/settings" className="block px-4 py-2 text-sm text-white/80 hover:bg-white/10 rounded-md transition-colors">
+                Account Settings
+              </Link>
+              <Link to="/" className="block px-4 py-2 text-sm text-pink-400 hover:bg-white/10 rounded-md transition-colors">
+                Sign Out
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  );
+};
+
+export default HomeHeader;
