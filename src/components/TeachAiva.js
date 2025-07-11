@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import './TeachAiva.css';
 
 // Sample data for preferences/instructions
 const samplePreferences = [
@@ -57,14 +58,18 @@ const TeachAiva = () => {
   const [editingPreference, setEditingPreference] = useState(null);
 
   const [showConversation, setShowConversation] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [backgroundBlurred, setBackgroundBlurred] = useState(false);
   const [conversation, setConversation] = useState([]);
   const [userMessage, setUserMessage] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentRuleSynthesis, setCurrentRuleSynthesis] = useState('');
 
   const openConversationModal = () => {
+    setIsClosing(false);
     setShowConversation(true);
-    document.body.classList.add('modal-open-bg-effect');
+    setBackgroundBlurred(true);
+
     if (newPreferenceText.trim()) {
       const initialMessage = { role: 'user', content: newPreferenceText };
       setConversation([initialMessage]);
@@ -76,6 +81,7 @@ const TeachAiva = () => {
       setCurrentRuleSynthesis('');
     }
   };
+
 
   const addAivaResponse = (userInput) => {
     setIsProcessing(true);
@@ -125,10 +131,10 @@ const TeachAiva = () => {
   };
 
   const closeConversation = () => {
-    setShowConversation(false);
+    setIsClosing(true);
+    setBackgroundBlurred(false); // Start background animation at the same time as modal closing
     setUserMessage('');
     setCurrentRuleSynthesis('');
-    document.body.classList.remove('modal-open-bg-effect');
   };
 
   const handleEditPreference = (preference) => {
@@ -190,38 +196,68 @@ const TeachAiva = () => {
   );
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold text-amber-100 mb-6">Teach Aiva</h1>
-      <p className="text-blue-100 mb-8">Customize how Aiva responds to you by setting your preferences below.</p>
-      <div className="mb-10 max-w-3xl mx-auto">
-        <div className="flex shadow-lg shadow-navy-900/10">
-          <input
-            type="text"
-            value={newPreferenceText}
-            onChange={(e) => setNewPreferenceText(e.target.value)}
-            onClick={openConversationModal}
-            placeholder={editingPreference ? "Edit instruction..." : "Tell Aiva how to handle your tasks..."}
-            className="flex-1 p-4 bg-[rgba(10,61,98,0.5)] backdrop-blur-sm rounded-l-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-amber-500 text-base cursor-pointer"
-          />
-          <button
-            onClick={editingPreference ? handleSaveEdit : openConversationModal}
-            className="px-6 py-3 bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 rounded-r-xl hover:opacity-90 transition-opacity font-medium shadow-lg shadow-amber-900/20"
-          >
-            {editingPreference ? 'Save' : 'Start Conversation'}
-          </button>
+    <>
+      <div className={`main-content-container${backgroundBlurred ? ' app-blur-when-modal' : ''}`}>
+        <div className={showConversation ? "max-w-4xl mx-auto py-8 px-4" : "max-w-4xl mx-auto py-8 px-4"}>
+          <h1 className="text-3xl font-bold text-amber-100 mb-6">Teach Aiva</h1>
+          <p className="text-blue-100 mb-8">Customize how Aiva responds to you by setting your preferences below.</p>
+          <div className="mb-10 max-w-3xl mx-auto">
+            <div className="flex shadow-lg shadow-navy-900/10">
+              <input
+                type="text"
+                value={newPreferenceText}
+                onChange={(e) => setNewPreferenceText(e.target.value)}
+                onClick={openConversationModal}
+                placeholder={editingPreference ? "Edit instruction..." : "Tell Aiva how to handle your tasks..."}
+                className="flex-1 p-4 bg-[rgba(10,61,98,0.5)] backdrop-blur-sm rounded-l-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-amber-500 text-base cursor-pointer"
+              />
+              <button
+                onClick={editingPreference ? handleSaveEdit : openConversationModal}
+                className="px-6 py-3 bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 rounded-r-xl hover:opacity-90 transition-opacity font-medium shadow-lg shadow-amber-900/20"
+              >
+                {editingPreference ? 'Save' : 'Start Conversation'}
+              </button>
+            </div>
+          </div>
         </div>
-        <p className="text-sm text-amber-100/60 mt-3 ml-1">
-          Click to start a conversation with Aiva. She'll help you create the perfect instruction through dialogue.
-        </p>
       </div>
 
+      <div className="mb-10">
+        <h2 className="text-xl font-medium text-blue-100 mb-4 border-b border-amber-200/20 pb-2">Your Instructions</h2>
+        {userPreferences.length === 0 ? (
+          <p className="text-amber-100/60 text-sm">No custom instructions yet. Add your first instruction above.</p>
+        ) : (
+          <div>
+            {userPreferences.map((preference) => (
+              <PreferenceCard key={preference.id} preference={preference} isDefault={false} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div>
+        <h2 className="text-xl font-medium text-white/90 mb-4 border-b border-white/10 pb-2">Standard Behaviors</h2>
+        {systemPreferences.map(preference => (
+          <PreferenceCard key={preference.id} preference={preference} isDefault={true} />
+        ))}
+      </div>
+    
       {showConversation && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={closeConversation}>
-          <div className="absolute inset-0 bg-navy-900/80 backdrop-blur-sm" />
-          <div className="bg-[#0a3d62] rounded-lg w-full max-w-lg shadow-2xl relative z-10 max-h-[80vh] flex flex-col overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center modal-perspective-container" onClick={closeConversation}>
+          <div className="absolute inset-0 bg-navy-900/80 backdrop-blur-sm conversation-backdrop" />
+          <div
+            className={`bg-[#0a3d62] rounded-lg w-full max-w-lg shadow-2xl relative z-10 max-h-[80vh] flex flex-col overflow-hidden conversation-container${isClosing ? ' modal-closing' : ' modal-opening'}`}
+            onClick={(e) => e.stopPropagation()}
+            onAnimationEnd={() => {
+              if (isClosing) {
+                setShowConversation(false);
+                setIsClosing(false);
+              }
+            }}
+          >
             <div className="flex justify-between items-center px-4 py-3 border-b border-white/10">
               <h3 className="text-lg font-medium text-amber-100">Teach Aiva</h3>
-              <button onClick={closeConversation} className="text-white/60 hover:text-white p-1 rounded-full">
+              <button onClick={closeConversation} className="text-white/60 hover:text-white p-1 rounded-full modal-close-button">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
               </button>
             </div>
@@ -268,28 +304,8 @@ const TeachAiva = () => {
           </div>
         </div>
       )}
-
-      <div className="mb-10">
-        <h2 className="text-xl font-medium text-blue-100 mb-4 border-b border-amber-200/20 pb-2">Your Instructions</h2>
-        {userPreferences.length === 0 ? (
-          <p className="text-amber-100/60 text-sm">No custom instructions yet. Add your first instruction above.</p>
-        ) : (
-          <div>
-            {userPreferences.map((preference) => (
-              <PreferenceCard key={preference.id} preference={preference} isDefault={false} />
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div>
-        <h2 className="text-xl font-medium text-white/90 mb-4 border-b border-white/10 pb-2">Standard Behaviors</h2>
-        {systemPreferences.map(preference => (
-          <PreferenceCard key={preference.id} preference={preference} isDefault={true} />
-        ))}
-      </div>
-    </div>
+    </>
   );
-};
+}
 
 export default TeachAiva;
