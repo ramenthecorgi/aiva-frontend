@@ -201,7 +201,9 @@ const BriefingsFeed = () => {
   return (
     <div className="relative flex max-w-7xl mx-auto">
       <div className={`flex-1 transition-all ${detailsPanelOpen ? 'mr-96' : ''}`}>
-        <h2 className="text-3xl font-bold mb-6 text-blue-100 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">Today's Briefings</h2>
+        <h2 className="text-3xl font-bold mb-6 text-blue-100 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+          {filter === 'today' ? "Today's Briefings" : filter === 'week' ? "This Week's Briefings" : "All Briefings"}
+        </h2>
       
       {/* Filter tabs */}
       <div className="mb-8 bg-[rgba(10,61,98,0.7)] p-2 rounded-xl shadow-lg shadow-navy-900/20 border border-white/5">
