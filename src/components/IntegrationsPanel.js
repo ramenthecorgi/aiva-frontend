@@ -176,82 +176,56 @@ const IntegrationsPanel = () => {
       
       {/* Future Integrations Section */}
       <div className="bg-[rgba(10,61,98,0.3)] backdrop-blur-sm rounded-xl p-6 border border-white/5 shadow-md shadow-navy-900/10">
-        <h2 className="text-xl font-medium text-blue-100 mb-4 border-b border-amber-200/20 pb-2">Coming Soon</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-          {/* Gmail Integration */}
-          <div className="bg-[rgba(10,61,98,0.4)] backdrop-blur-sm rounded-xl p-6 border border-white/10 shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center mb-4">
-              <div className="h-12 w-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-inner">
-                <svg className="h-7 w-7 text-red-500" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-xl font-medium text-blue-100">Gmail</h3>
-                <p className="text-amber-100/60 text-sm">{gmailConnected ? 'Connected' : 'Not connected'}</p>
-              </div>
+        <h3 className="text-xl font-semibold text-blue-100 mb-4">Coming Soon</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          
+          {/* Microsoft Outlook Integration */}
+          <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors h-full">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400/20 to-blue-500/20 flex items-center justify-center mr-3 shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-amber-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
             </div>
-            
-            <div className="mb-5">
-              <h3 className="text-sm font-medium text-blue-100 mb-3">Permissions Granted</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {gmailScopes.map((scope, index) => (
-                  <div key={index} className="flex items-center">
-                    <span className="inline-block w-4 h-4 rounded-full bg-green-500 mr-2"></span>
-                    <span className="text-sm text-amber-100/80">{scope.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div className="flex items-center">
-              <button 
-                onClick={handleSendTestEmail}
-                className="px-4 py-1.5 text-sm bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 font-medium rounded-md hover:opacity-90 transition-opacity mr-3 shadow-sm shadow-amber-900/20"
-              >
-                Send Test Email
-              </button>
-              {testEmailSent && (
-                <span className="text-sm text-green-400">Test email sent!</span>
-              )}
+            <div className="flex-1">
+              <h3 className="text-sm font-medium text-blue-100">Microsoft Outlook</h3>
+              <p className="text-xs text-amber-100/60">Email and calendar integration</p>
             </div>
           </div>
           
-          {/* Drive Integration */}
-          <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors">
-            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mr-3 shadow-sm">
+          {/* Google Drive Integration */}
+          <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors h-full">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400/20 to-blue-500/20 flex items-center justify-center mr-3 shadow-sm">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-amber-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
               </svg>
             </div>
-            <div>
+            <div className="flex-1">
               <h3 className="text-sm font-medium text-blue-100">Google Drive</h3>
               <p className="text-xs text-amber-100/60">File management and document organization</p>
             </div>
           </div>
           
           {/* Zoom Integration */}
-          <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors">
-            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mr-3 shadow-sm">
+          <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors h-full">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400/20 to-blue-500/20 flex items-center justify-center mr-3 shadow-sm">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-amber-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
             </div>
-            <div>
+            <div className="flex-1">
               <h3 className="text-sm font-medium text-blue-100">Zoom</h3>
               <p className="text-xs text-amber-100/60">Video meeting scheduling and management</p>
             </div>
           </div>
           
           {/* Notion Integration */}
-          <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors">
-            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mr-3 shadow-sm">
+          <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors h-full">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400/20 to-blue-500/20 flex items-center justify-center mr-3 shadow-sm">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-amber-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <div>
+            <div className="flex-1">
               <h3 className="text-sm font-medium text-blue-100">Notion</h3>
               <p className="text-xs text-amber-100/60">Knowledge base and note synchronization</p>
             </div>
