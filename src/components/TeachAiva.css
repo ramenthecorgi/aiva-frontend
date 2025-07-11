@@ -1,10 +1,13 @@
 /* TeachAiva.css - Styles for drag and drop functionality */
 
+/* Base styles for preference items */
 .preference-item {
   position: relative;
-  transition: all 0.2s ease;
+  transition: transform 0.3s ease, opacity 0.2s ease, box-shadow 0.3s ease;
+  will-change: transform, opacity, box-shadow;
 }
 
+/* Styles for the item being dragged */
 .preference-item.dragging {
   z-index: 100;
   opacity: 0.8;
@@ -12,10 +15,12 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
+/* Styles for items that are potential drop targets */
 .preference-item.drag-over {
   border-top: 2px solid #f59e0b;
 }
 
+/* Drag handle styling */
 .drag-handle {
   cursor: grab;
   padding: 2px;
@@ -42,7 +47,51 @@
   }
 }
 
+/* Animation for when items slide up */
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animation for when items slide down */
+@keyframes slideDown {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* Apply animation to items when they're dropped */
 .preference-item:not(.dragging) {
   animation: dropAnimation 0.3s ease;
+}
+
+/* Animation for items that move up in the list */
+.slide-up {
+  animation: slideUp 0.3s ease forwards;
+}
+
+/* Animation for items that move down in the list */
+.slide-down {
+  animation: slideDown 0.3s ease forwards;
+}
+
+/* Container for all preference items */
+.preference-list {
+  position: relative;
+}
+
+/* Smooth transition for all preference items */
+.preference-list > div {
+  transition: all 0.3s ease;
 }
