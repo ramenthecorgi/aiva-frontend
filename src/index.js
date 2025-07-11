@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import Onboarding from './components/Onboarding';
 import featureFlags from './config/featureFlags';
 
 // Only import login-related components if the feature is enabled
@@ -22,6 +23,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/onboarding" element={<Onboarding />} />
         {featureFlags.enableLogin && (
           <>
             <Route path="/login" element={<Login />} />
