@@ -10,14 +10,14 @@ const painpoints = [
 ];
 
 const PainpointsSection = () => (
-  <section className="bg-gradient-to-br from-neutral-900 to-black py-24">
+  <section className="bg-gradient-to-br from-[#0a3d62] to-[#0c2461] py-24">
     <div className="max-w-screen-xl mx-auto px-6">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-center bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-6">The Email Nightmare is Real</h2>
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center bg-gradient-to-r from-blue-300 to-amber-300 bg-clip-text text-transparent mb-6">The Email Nightmare is Real</h2>
       <p className="text-center text-lg text-gray-300 font-light max-w-3xl mx-auto mb-16">Every day, millions of professionals lose hours to email chaos. Sound familiar?</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-4">
         {painpoints.map(([icon, title, desc], idx) => (
-          <div key={idx} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 transition-all hover:scale-[1.02] hover:shadow-xl hover:border-pink-500/30">
-            <div className="w-20 h-20 flex items-center justify-center text-3xl mb-4 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 text-white shadow-xl">
+          <div key={idx} className="bg-[rgba(10,61,98,0.3)] backdrop-blur-xl border border-white/10 rounded-3xl p-8 transition-all hover:scale-[1.02] hover:shadow-xl hover:border-amber-400/30">
+            <div className="w-20 h-20 flex items-center justify-center text-3xl mb-4 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 text-navy-900 shadow-xl">
               {icon}
             </div>
             <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
