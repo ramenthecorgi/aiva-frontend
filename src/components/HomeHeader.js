@@ -1,15 +1,117 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const HomeHeader = () => {
+const HomeHeader = ({ activeTab = 'briefings', onTabChange }) => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   return (
     <header className="fixed top-0 left-0 right-0 z-10 bg-[rgba(10,61,98,0.95)] backdrop-blur-md border-b border-white/10 py-5 px-4 sm:px-6 md:px-8 shadow-lg shadow-navy-900/20">
-      <div className="max-w-screen-xl mx-auto flex justify-between items-center">
-        <div className="text-2xl font-bold bg-gradient-to-r from-blue-300 via-blue-100 to-amber-100 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Aiva</div>
+      {/* Mobile Navigation Menu */}
+      {mobileMenuOpen && (
+        <div className="absolute top-full left-0 right-0 bg-[rgba(10,40,70,0.98)] backdrop-blur-md border-b border-white/10 shadow-lg shadow-navy-900/20 py-4 px-4 md:hidden animate-fadeIn">
+          <nav className="flex flex-col space-y-2">
+            <button
+              onClick={() => {
+                onTabChange('briefings');
+                setMobileMenuOpen(false);
+              }}
+              className={`px-4 py-3 text-sm font-medium rounded-md transition-colors ${activeTab === 'briefings' ? 'bg-[rgba(255,255,255,0.1)] text-amber-100' : 'text-white/80 hover:text-white hover:bg-[rgba(255,255,255,0.05)]'}`}
+            >
+              <span className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
+                Briefings
+              </span>
+            </button>
+            <button
+              onClick={() => {
+                onTabChange('rules');
+                setMobileMenuOpen(false);
+              }}
+              className={`px-4 py-3 text-sm font-medium rounded-md transition-colors ${activeTab === 'rules' ? 'bg-[rgba(255,255,255,0.1)] text-amber-100' : 'text-white/80 hover:text-white hover:bg-[rgba(255,255,255,0.05)]'}`}
+            >
+              <span className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+                Rules
+              </span>
+            </button>
+            <button
+              onClick={() => {
+                onTabChange('integrations');
+                setMobileMenuOpen(false);
+              }}
+              className={`px-4 py-3 text-sm font-medium rounded-md transition-colors ${activeTab === 'integrations' ? 'bg-[rgba(255,255,255,0.1)] text-amber-100' : 'text-white/80 hover:text-white hover:bg-[rgba(255,255,255,0.05)]'}`}
+            >
+              <span className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Integrations
+              </span>
+            </button>
+          </nav>
+        </div>
+      )}
+      <div className="max-w-screen-xl mx-auto flex justify-between items-center">  
+        <div className="flex items-center space-x-6">
+          <div className="text-2xl font-bold bg-gradient-to-r from-blue-300 via-blue-100 to-amber-100 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Aiva</div>
+          
+          {/* Main Navigation - Desktop */}
+          <nav className="hidden md:flex items-center space-x-1">
+            <button
+              onClick={() => onTabChange('briefings')}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${activeTab === 'briefings' ? 'bg-[rgba(255,255,255,0.1)] text-amber-100' : 'text-white/80 hover:text-white hover:bg-[rgba(255,255,255,0.05)]'}`}
+            >
+              <span className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
+                Briefings
+              </span>
+            </button>
+            <button
+              onClick={() => onTabChange('rules')}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${activeTab === 'rules' ? 'bg-[rgba(255,255,255,0.1)] text-amber-100' : 'text-white/80 hover:text-white hover:bg-[rgba(255,255,255,0.05)]'}`}
+            >
+              <span className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+                Rules
+              </span>
+            </button>
+            <button
+              onClick={() => onTabChange('integrations')}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${activeTab === 'integrations' ? 'bg-[rgba(255,255,255,0.1)] text-amber-100' : 'text-white/80 hover:text-white hover:bg-[rgba(255,255,255,0.05)]'}`}
+            >
+              <span className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Integrations
+              </span>
+            </button>
+          </nav>
+        </div>
 
         <div className="flex items-center space-x-5">
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-white/80 hover:text-white transition-colors hover:bg-white/5 rounded-full"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
           {/* Notification Icon with Dropdown */}
           <button 
             onClick={() => setShowNotifications(!showNotifications)}
