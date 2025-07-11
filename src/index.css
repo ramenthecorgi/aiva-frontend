@@ -1,4 +1,8 @@
-/* Base styles - Tailwind CSS will handle most styling */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;

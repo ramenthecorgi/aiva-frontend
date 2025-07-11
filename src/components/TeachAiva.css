@@ -1,4 +1,4 @@
-/* TeachAiva.css - Styles for drag and drop functionality */
+/* TeachAiva.css - Styles for drag and drop functionality and modal animations */
 
 /* Base styles for preference items */
 .preference-item {
@@ -94,4 +94,134 @@
 /* Smooth transition for all preference items */
 .preference-list > div {
   transition: all 0.3s ease;
+}
+
+/* Modal Dialog Animations */
+
+/* Modal animations */
+
+/* Background effect - applied to body when modal is open */
+.modal-open-bg-effect {
+  animation: backgroundEffect 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes backgroundEffect {
+  from { 
+    transform: scale(1); 
+    filter: blur(0); 
+    opacity: 1;
+  }
+  to { 
+    transform: scale(0.95); 
+    filter: blur(3px); 
+    opacity: 0.8;
+  }
+}
+
+/* Modal backdrop animation with blur */
+.conversation-backdrop {
+  animation: backdropFadeIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  backdrop-filter: blur(0px);
+}
+
+@keyframes backdropFadeIn {
+  from { 
+    opacity: 0; 
+    backdrop-filter: blur(0px);
+  }
+  to { 
+    opacity: 1; 
+    backdrop-filter: blur(5px);
+  }
+}
+
+/* Modal container animation - swooping up motion */
+.conversation-container {
+  animation: modalSwoopIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  transform-origin: center bottom;
+}
+
+@keyframes modalSwoopIn {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.8) translateY(50px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Message animations */
+.message-container {
+  animation: messageAppear 0.4s ease-out;
+}
+
+@keyframes messageAppear {
+  0% { 
+    opacity: 0; 
+    transform: translateY(10px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+/* Typing indicator animation */
+@keyframes typingBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* Rule preview animation */
+.rule-preview-enter {
+  animation: rulePreviewEnter 0.5s ease-out forwards;
+}
+
+@keyframes rulePreviewEnter {
+  0% { 
+    opacity: 0; 
+    transform: translateY(10px) scale(0.98);
+    box-shadow: 0 0 0 rgba(241, 183, 48, 0);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(241, 183, 48, 0.4);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 rgba(241, 183, 48, 0);
+  }
+}
+
+/* Button hover animation */
+.send-button-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.send-button-hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.send-button-hover:hover::after {
+  left: 100%;
+}
+
+/* Modal close button animation */
+.modal-close-button {
+  transition: all 0.2s;
+}
+
+.modal-close-button:hover {
+  transform: rotate(90deg);
+  background-color: rgba(255, 255, 255, 0.1);
 }
