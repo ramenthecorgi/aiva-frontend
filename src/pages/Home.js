@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HomeHeader from '../components/HomeHeader';
 import Footer from '../components/Footer';
-import BriefingsFeed from '../components/BriefingsFeed';
+import BriefingsFeedAlt from '../components/BriefingsFeedAlt';
 import TeachAiva from '../components/TeachAiva';
 import IntegrationsPanel from '../components/IntegrationsPanel';
 
@@ -16,13 +16,13 @@ const Home = () => {
   const renderActiveComponent = () => {
     switch (activeTab) {
       case 'briefings':
-        return <BriefingsFeed />;
+        return <BriefingsFeedAlt />;
       case 'rules':
         return <TeachAiva />;
       case 'integrations':
         return <IntegrationsPanel />;
       default:
-        return <BriefingsFeed />;
+        return <BriefingsFeedAlt />;
     }
   };
 
