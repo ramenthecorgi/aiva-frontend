@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const ChatTaskView = ({ onClose }) => {
+const ChatTaskView = ({ onClose, animationState }) => {
   const [chatMessages, setChatMessages] = useState([
     { 
       id: 1, 
@@ -68,19 +68,38 @@ const ChatTaskView = ({ onClose }) => {
     }, 1000);
   };
 
+  // Generate animation classes based on animationState
+  const getAnimationClasses = () => {
+    switch(animationState) {
+      case 'entering':
+        return 'animate-slide-up transform origin-top';
+      case 'entered':
+        return 'opacity-100 transform-none transition-all duration-300';
+      case 'exiting':
+        return 'animate-slide-down transform origin-top';
+      default:
+        return '';
+    }
+  };
+
   return (
-    <div className="flex h-[calc(100vh-6rem)] bg-[rgba(10,30,50,0.98)]">
+    <div className={`flex h-[calc(100vh-6rem)] bg-gradient-to-b from-[rgba(10,61,98,0.98)] to-[rgba(10,30,50,0.98)] shadow-2xl border border-white/10 rounded-t-xl shadow-[0_-8px_20px_rgba(0,0,0,0.25)] ${getAnimationClasses()}`} style={{ transformOrigin: 'top center' }}>
       {/* Left Panel - Chat Surface */}
       <div className="w-1/2 flex flex-col border-r border-white/10">
         {/* Chat Header */}
         <div className="p-4 border-b border-white/10 bg-[rgba(255,255,255,0.03)]">
           <div className="flex items-center">
-            <div className="h-8 w-8 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold mr-3">
+            <div className="h-8 w-8 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold mr-3 shadow-md">
               A
             </div>
-            <div>
-              <h3 className="font-medium text-white">Aiva</h3>
-              <p className="text-xs text-white/60">Your AI Assistant</p>
+            <div className="flex-1">
+              <h3 className="font-medium text-blue-100">Aiva</h3>
+              <p className="text-xs text-amber-100/70">Your AI Assistant</p>
+            </div>
+            <div className="flex space-x-1">
+              <div className="h-2 w-2 bg-amber-400 rounded-full animate-pulse"></div>
+              <div className="h-2 w-2 bg-amber-400/60 rounded-full animate-pulse delay-100"></div>
+              <div className="h-2 w-2 bg-amber-400/30 rounded-full animate-pulse delay-200"></div>
             </div>
           </div>
         </div>
@@ -92,11 +111,16 @@ const ChatTaskView = ({ onClose }) => {
               key={message.id} 
               className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
+              {message.sender !== 'user' && (
+                <div className="h-8 w-8 rounded-full bg-gradient-to-r from-amber-400/80 to-amber-600/80 flex items-center justify-center text-white font-bold mr-2 self-end shadow-sm text-xs">
+                  A
+                </div>
+              )}
               <div 
-                className={`max-w-[80%] rounded-lg p-3 ${
+                className={`max-w-[75%] rounded-lg p-3.5 shadow-md ${
                   message.sender === 'user' 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-[rgba(255,255,255,0.1)] text-white/90'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white border border-blue-500/30' 
+                    : 'bg-gradient-to-r from-[rgba(255,255,255,0.08)] to-[rgba(255,255,255,0.12)] text-blue-100 border border-white/10'
                 }`}
               >
                 <p className="whitespace-pre-wrap">{message.content}</p>
@@ -110,19 +134,27 @@ const ChatTaskView = ({ onClose }) => {
         </div>
         
         {/* Chat Input - Fixed at bottom */}
-        <div className="p-4 border-t border-white/10 bg-[rgba(10,20,40,0.5)]">
-          <form onSubmit={handleSendMessage} className="flex">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Type your message here..."
-              className="flex-1 bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-l-md px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
-              autoFocus
-            />
+        <div className="p-4 border-t border-white/10 bg-gradient-to-b from-[rgba(10,30,50,0.7)] to-[rgba(10,40,70,0.9)]">
+          <form onSubmit={handleSendMessage} className="flex items-center">
+            <div className="flex-1 relative">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Type your message here..."
+                className="w-full bg-[rgba(255,255,255,0.08)] border border-white/15 rounded-l-md px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-amber-400/50 shadow-inner shadow-black/20"
+                autoFocus
+              />
+              {!inputValue && (
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xs text-white/40 pointer-events-none">
+                  Press Enter to send
+                </div>
+              )}
+            </div>
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-r-md transition-colors flex items-center justify-center"
+              disabled={!inputValue.trim()}
+              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-500 hover:to-amber-700 text-white px-4 py-3 rounded-r-md transition-colors flex items-center justify-center shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
@@ -135,11 +167,18 @@ const ChatTaskView = ({ onClose }) => {
       {/* Right Panel - Task Preview (Google Doc style) */}
       <div className="w-1/2 flex flex-col">
         {/* Task Header */}
-        <div className="p-4 border-b border-white/10 flex justify-between items-center bg-[rgba(255,255,255,0.03)]">
-          <h2 className="text-lg font-medium text-white">Task Preview</h2>
+        <div className="p-4 border-b border-white/10 flex justify-between items-center bg-gradient-to-r from-[rgba(255,255,255,0.03)] to-[rgba(255,255,255,0.05)]">
+          <div className="flex items-center">
+            <div className="w-6 h-6 mr-2 text-amber-400">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            </div>
+            <h2 className="text-lg font-medium text-blue-100">Task Preview</h2>
+          </div>
           <button 
             onClick={onClose}
-            className="text-white/60 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors"
+            className="text-amber-100/60 hover:text-amber-100 p-1 rounded-full hover:bg-white/10 transition-colors"
             aria-label="Close"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -159,12 +198,12 @@ const ChatTaskView = ({ onClose }) => {
                   <div className="flex items-center mt-2 text-sm text-gray-500">
                     <span className="mr-2">Created {new Date().toLocaleDateString()}</span>
                     <span className="h-1 w-1 rounded-full bg-gray-400 mx-2"></span>
-                    <span>Due {taskPreview.dueDate ? new Date(taskPreview.dueDate).toLocaleDateString() : 'Not set'}</span>
+                    <span className="text-amber-600 font-medium">{taskPreview.priority}</span>
                   </div>
                 </div>
                 
                 {/* Document Body */}
-                <div className="p-6 bg-white text-gray-700">
+                <div className="p-6 bg-gradient-to-b from-white to-gray-50 text-gray-700">
                   <div className="prose max-w-none">
                     <h2 className="text-xl font-semibold text-gray-800 mb-2">Description</h2>
                     <p className="mb-6">{taskPreview.description}</p>
@@ -174,13 +213,6 @@ const ChatTaskView = ({ onClose }) => {
                         <h3 className="text-lg font-medium text-gray-800 mb-2">Status</h3>
                         <div className="bg-amber-100 text-amber-800 text-sm py-1 px-3 rounded-full inline-block">
                           {taskPreview.status}
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-lg font-medium text-gray-800 mb-2">Priority</h3>
-                        <div className="bg-blue-100 text-blue-800 text-sm py-1 px-3 rounded-full inline-block">
-                          {taskPreview.priority}
                         </div>
                       </div>
                     </div>

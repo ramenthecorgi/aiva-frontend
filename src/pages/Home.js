@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HomeHeader from '../components/HomeHeader';
 import Footer from '../components/Footer';
 import BriefingsFeedAlt from '../components/BriefingsFeedAlt';
@@ -8,25 +8,52 @@ import ChatTaskView from '../components/ChatTaskView';
 const Home = () => {
   const [activeTab, setActiveTab] = useState('briefings');
   const [showChatTaskView, setShowChatTaskView] = useState(false);
+  const [animationState, setAnimationState] = useState('none'); // 'none', 'entering', 'entered', 'exiting'
+  
+  // Reset animationState to none after exit completes
+  useEffect(() => {
+    if (animationState === 'exiting') {
+      const timer = setTimeout(() => setAnimationState('none'), 400);
+      return () => clearTimeout(timer);
+    }
+  }, [animationState]);
   
   const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    setShowChatTaskView(false); // Close chat task view when switching tabs
+    if (showChatTaskView) {
+      // Play exit animation first
+      setAnimationState('exiting');
+      setTimeout(() => {
+        setShowChatTaskView(false);
+        setAnimationState('none');
+        setActiveTab(tab);
+      }, 400);
+    } else {
+      setActiveTab(tab);
+    }
   };
   
   const handleChatClick = () => {
+    // Prepare entering animation before component mounts to avoid flash
+    setAnimationState('entering');
     setShowChatTaskView(true);
+    setTimeout(() => setAnimationState('entered'), 400);
   };
   
   const handleCloseChatView = () => {
-    setShowChatTaskView(false);
+    if (showChatTaskView) {
+      setAnimationState('exiting');
+      setTimeout(() => {
+        setShowChatTaskView(false);
+        setAnimationState('none');
+      }, 400);
+    }
   };
 
   // Render the active component based on tab selection
   const renderActiveComponent = () => {
-    // If chat task view is active, show it instead of the regular view
-    if (showChatTaskView) {
-      return <ChatTaskView onClose={handleCloseChatView} />;
+    // If chat task view is active or animating, show it
+    if (showChatTaskView || animationState === 'exiting') {
+      return <ChatTaskView onClose={handleCloseChatView} animationState={animationState} />;
     }
     
     // Otherwise show the regular tab content
