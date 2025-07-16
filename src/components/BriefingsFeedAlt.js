@@ -296,15 +296,14 @@ const BriefingsFeedAlt = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
+    <div className="max-w-7xl mx-auto px-4 py-6 overflow-hidden h-[calc(100vh-6rem)]">
+      <div className="h-full flex flex-col overflow-hidden">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <h2 className="text-2xl font-bold text-blue-100">
           {filter === 'today' ? "Today's Briefings" : filter === 'week' ? "This Week's Briefings" : "All Briefings"}
         </h2>
         <div className="flex items-center space-x-4">
-          {/* Filter Tabs */}
-          {/* Filter Tabs */}
           <div className="flex bg-[rgba(10,61,98,0.7)] p-1 rounded-xl">
             {['today', 'week', 'all'].map((tab) => (
               <button
@@ -322,10 +321,10 @@ const BriefingsFeedAlt = () => {
           </div>
         </div>
       </div>
-      {/* Two-column layout */}
-      <div className="flex gap-8 items-start">
-        {/* Briefing List */}
-        <div className="flex-1 min-w-[320px] max-w-lg">
+      {/* Two-column layout - full height with individual scrolling panels */}
+      <div className="flex gap-8 h-[calc(100vh-12rem)] overflow-hidden">
+        {/* Briefing List - Left Panel with scrolling */}
+        <div className="flex-1 min-w-[320px] max-w-lg overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.2) transparent' }}>
           {/* Aiva's Daily Overview Section */}
           <div className="mb-6">
             <div 
@@ -415,21 +414,26 @@ const BriefingsFeedAlt = () => {
             })}
           </div>
         </div>
-        {/* Details Panel */}
-        <div className="flex-1 min-w-[340px] max-w-2xl bg-[rgba(10,61,98,0.98)] rounded-2xl border border-white/10 shadow-xl p-6 flex flex-col h-full" style={{minHeight: '600px'}}>
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-blue-100">Briefing Details</h3>
-            <button 
-              onClick={() => setSelectedBriefing(null)}
-              className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-100/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+        {/* Details Panel - Right Panel with scrolling */}
+        <div className="flex-1 min-w-[340px] max-w-2xl bg-[rgba(10,61,98,0.98)] rounded-2xl border border-white/10 shadow-xl flex flex-col h-full overflow-hidden">
+          {/* Fixed Header */}
+          <div className="p-6 border-b border-white/10">
+            <div className="flex justify-between items-center">
+              <h3 className="text-xl font-semibold text-blue-100">Briefing Details</h3>
+              <button 
+                onClick={() => setSelectedBriefing(null)}
+                className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-100/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
+          
+          {/* Scrollable Content */}
           {selectedBriefing && selectedBriefing.details ? (
-            <div className="space-y-6 flex-1 overflow-y-auto">
+            <div className="p-6 space-y-6 flex-1 overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.2) transparent' }}>
               <div className="p-4 bg-[rgba(255,255,255,0.05)] rounded-xl">
                 <h4 className="text-sm font-medium text-amber-100 mb-3">Message Details</h4>
                 <div className="space-y-3">
@@ -497,6 +501,7 @@ const BriefingsFeedAlt = () => {
             </div>
           )}
         </div>
+      </div>
       </div>
     </div>
   );
