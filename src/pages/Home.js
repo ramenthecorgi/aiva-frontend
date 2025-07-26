@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HomeHeader from '../components/HomeHeader';
+import HeroSection from '../components/HeroSection';
 import Footer from '../components/Footer';
 import BriefingsFeedAlt from '../components/BriefingsFeedAlt';
 import Settings from '../components/Settings';
@@ -71,8 +72,8 @@ const Home = () => {
     <>
       <div className="fixed inset-0 z-[-1] bg-[radial-gradient(circle_at_20%_50%,#0a3d62_0%,transparent_50%),radial-gradient(circle_at_80%_20%,#0c2461_0%,transparent_50%),radial-gradient(circle_at_40%_80%,#1e3799_0%,transparent_50%)] animate-[bgShift_15s_ease-in-out_infinite]" />
       
+      <HeroSection />
       <HomeHeader activeTab={activeTab} onTabChange={handleTabChange} onChatClick={handleChatClick} />
-      
       <div className="h-screen overflow-hidden pt-24 px-4 sm:px-6 md:px-8 max-w-screen-xl mx-auto">
         {/* Active Component */}
         <div className="h-full overflow-hidden">

@@ -1,21 +1,19 @@
 import React from "react";
 
-const painpoints = [
-  ['⚡', 'Productivity Killer', 'Executives waste 28% of their week—11+ hours—drowning in email.'],
-  ['🎯', 'Priority Blindness', 'Million-dollar deals get buried under spam.'],
-  ['🔥', 'Attention Terrorism', '74 daily email checks shatter your focus.'],
-  ['🔄', 'Repetition Hell', 'Typing the same responses endlessly.'],
-  ['🧠', 'Context Chaos', 'Thread archaeology every morning.'],
-  ['📊', 'System Overwhelm', 'Complex folder systems that need constant maintenance.'],
+const personas = [
+  ['👔', 'Corporate & Tech Leadership', 'CxOs, VPs, Directors, PMs, EMs, HR Heads need to delegate routine tasks and focus on vision.'],
+  ['🏪', 'Small Biz & Self-Employed', 'Realtors, freelancers, online sellers, clinic owners need client comms, bookings, and follow-ups.'],
+  ['🎤', 'Influencers & Academics', 'Creators, speakers, professors need to manage outreach, content, and events.'],
+  ['👨‍👩‍👧‍👦', 'Working Parents', 'Dual-career households need to balance work and life with smart reminders and scheduling.'],
 ];
 
 const PainpointsSection = () => (
   <section className="bg-gradient-to-br from-[#0a3d62] to-[#0c2461] py-24">
     <div className="max-w-screen-xl mx-auto px-6">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-center bg-gradient-to-r from-blue-300 to-amber-300 bg-clip-text text-transparent mb-6">The Email Nightmare is Real</h2>
-      <p className="text-center text-lg text-gray-300 font-light max-w-3xl mx-auto mb-16">Every day, millions of professionals lose hours to email chaos. Sound familiar?</p>
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center bg-gradient-to-r from-blue-300 to-amber-300 bg-clip-text text-transparent mb-6">Who is Aiva for?</h2>
+      <p className="text-center text-lg text-gray-300 font-light max-w-3xl mx-auto mb-16">Professionals across industries are overwhelmed by repetitive tasks, information overload, and lack of time for strategic work. Aiva helps you reclaim your focus.</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-4">
-        {painpoints.map(([icon, title, desc], idx) => (
+        {personas.map(([icon, title, desc], idx) => (
           <div key={idx} className="bg-[rgba(10,61,98,0.3)] backdrop-blur-xl border border-white/10 rounded-3xl p-8 transition-all hover:scale-[1.02] hover:shadow-xl hover:border-amber-400/30">
             <div className="w-20 h-20 flex items-center justify-center text-3xl mb-4 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 text-navy-900 shadow-xl">
               {icon}

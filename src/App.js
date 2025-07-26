@@ -5,6 +5,7 @@ import React from 'react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import PainpointsSection from './components/PainpointsSection';
+import IntegrationsSection from './components/IntegrationsSection';
 import AssistantSection from './components/AssistantSection';
 import SignupSection from './components/SignupSection';
 import Footer from './components/Footer';
@@ -17,6 +18,7 @@ const LandingPage = () => {
       <Header />
       <HeroSection />
       <PainpointsSection />
+      <IntegrationsSection />
       <AssistantSection />
       <SignupSection />
       <Footer />
