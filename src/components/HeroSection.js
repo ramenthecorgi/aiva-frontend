@@ -20,11 +20,11 @@ const HeroSection = () => (
       <div className="flex flex-col md:flex-row justify-center gap-4 mt-6">
         <a href="#signup" className="bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 font-extrabold py-4 px-10 rounded-full shadow-xl hover:scale-105 transition relative overflow-hidden">
           <span className="absolute inset-0 -top-1 -left-1 w-[200%] h-[200%] bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-45 transition-all group-hover:animate-[shimmer_0.6s_ease-in-out]" />
-          <span className="relative z-10">Transform Your Inbox</span>
+          <span className="relative z-10">Hire Aiva</span>
         </a>
         <a href="#demo" className="text-blue-100 border border-white/30 hover:border-amber-400 font-semibold py-4 px-10 rounded-full hover:translate-y-[-2px] transition relative overflow-hidden">
           <span className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-500 opacity-0 hover:opacity-10 transition-all" />
-          <span className="relative z-10">See the Magic</span>
+          <span className="relative z-10">See Aiva in Action</span>
         </a>
       </div>
     </div>

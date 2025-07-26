@@ -6,8 +6,9 @@ import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import PainpointsSection from './components/PainpointsSection';
 import IntegrationsSection from './components/IntegrationsSection';
-import AssistantSection from './components/AssistantSection';
-import SignupSection from './components/SignupSection';
+import ValuePropositionSection from './components/ValuePropositionSection';
+import DemoSection from './components/DemoSection';
+import FAQSection from './components/FAQSection';
 import Footer from './components/Footer';
 
 const LandingPage = () => {
@@ -19,8 +20,9 @@ const LandingPage = () => {
       <HeroSection />
       <PainpointsSection />
       <IntegrationsSection />
-      <AssistantSection />
-      <SignupSection />
+      <ValuePropositionSection />
+      <DemoSection />
+      <FAQSection />
       <Footer />
     </>
   );

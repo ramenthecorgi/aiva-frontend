@@ -12,8 +12,8 @@ const SignupSection = () => {
   return (
   <section id="signup" className="bg-gradient-to-b from-[#0a3d62] to-[#0c2461] py-24 text-center">
     <div className="max-w-screen-md mx-auto px-6">
-      <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-300 to-amber-300 bg-clip-text text-transparent mb-6">Ready to Dominate Your Inbox?</h2>
-      <p className="text-lg text-white/90 font-light mb-10">Join the elite circle of professionals who've already transformed their email game. Your productivity revolution starts now.</p>
+      <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-300 to-amber-300 bg-clip-text text-transparent mb-6">Ready for Your AI Executive Assistant?</h2>
+      <p className="text-lg text-white/90 font-light mb-10">Join thousands of professionals who've reclaimed their time and focus. Start your 14-day free trial - no credit card required.</p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <input type="email" placeholder="Enter your email" className="w-full sm:w-auto flex-1 px-6 py-3 rounded-full border-2 border-white/10 bg-[rgba(10,61,98,0.3)] text-blue-100 placeholder-blue-100/50 focus:border-amber-400 outline-none" />
         <button 
@@ -23,7 +23,7 @@ const SignupSection = () => {
           Start Onboarding
         </button>
       </div>
-      <p className="text-sm text-white/70 mt-6">No credit card required • Transform in minutes</p>
+      <p className="text-sm text-white/70 mt-6">✓ 14-day free trial • ✓ No credit card required • ✓ Cancel anytime</p>
     </div>
   </section>
   );

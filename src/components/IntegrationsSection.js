@@ -41,11 +41,34 @@ const IntegrationsSection = () => (
             {/* Tools */}
             <div className="mb-4">
               <h4 className="text-sm font-semibold text-amber-300 mb-2">INTEGRATES WITH:</h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3">
                 {integration.tools.map((tool, toolIdx) => (
-                  <span key={toolIdx} className="px-3 py-1 bg-gradient-to-r from-amber-400/20 to-amber-500/20 border border-amber-400/30 rounded-full text-sm text-amber-200">
-                    {tool}
-                  </span>
+                  <div key={toolIdx} className="flex items-center bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20 hover:border-amber-400/50 transition-colors">
+                    <div className="w-6 h-6 rounded mr-2 flex items-center justify-center text-xs font-bold" 
+                         style={{
+                           backgroundColor: 
+                             tool === 'Slack' ? '#4A154B' :
+                             tool === 'Google Workspace' ? '#4285F4' :
+                             tool === 'Notion' ? '#000000' :
+                             tool === 'Outlook' ? '#0078D4' :
+                             tool === 'DocuSign' ? '#FFB800' :
+                             tool === 'Calendly' ? '#006BFF' :
+                             tool === 'Shopify' ? '#96BF48' :
+                             tool === 'Stripe' ? '#635BFF' :
+                             tool === 'QuickBooks' ? '#0077C5' :
+                             tool === 'Twitter' ? '#1DA1F2' :
+                             tool === 'LinkedIn' ? '#0A66C2' :
+                             tool === 'Eventbrite' ? '#F05537' :
+                             tool === 'Google Calendar' ? '#4285F4' :
+                             tool === 'WhatsApp' ? '#25D366' :
+                             tool === 'Zoom' ? '#2D8CFF' :
+                             '#666666',
+                           color: 'white'
+                         }}>
+                      {tool.charAt(0)}
+                    </div>
+                    <span className="text-white/90 text-sm font-medium">{tool}</span>
+                  </div>
                 ))}
               </div>
             </div>
