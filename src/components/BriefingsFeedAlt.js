@@ -2,93 +2,96 @@ import React, { useState } from 'react';
 
 // Sample data for briefings (same as original)
 const sampleBriefings = [
+  // Creator-focused sample data
   {
     id: 0,
-    time: '7:30 AM',
-    title: 'Your Day at a Glance',
-    summary: "Good morning! Here's your schedule, priorities, and key information for today.",
+    time: '8:00 AM',
+    title: 'Your Creator Daily Digest',
+    summary: "Morning! Here's your content schedule, social media pulse, and top priorities.",
     type: 'daily_overview',
     section: 'daily_overview',
     date: new Date().toISOString(),
     details: {
       from: 'aiva-system@example.com',
-      to: 'you@example.com',
-      subject: 'Daily Overview - ' + new Date().toLocaleDateString(),
-      body: "Good morning,\n\nHere's your day at a glance:\n\n• You have 3 meetings today (Team Sync at 10am, Client XYZ at 2pm, Q2 Planning at 4pm)\n• Priority tasks: Finalize Q2 Marketing Report, Review project proposal from Alice\n• Weather: 72°F, Sunny\n• Market update: NASDAQ +0.7%, S&P 500 +0.3%\n• Today's quote: 'The best way to predict the future is to create it.'\n\nLet me know if you need anything else today!\n\nAiva",
+      to: 'creator@example.com',
+      subject: 'Creator Daily Digest - ' + new Date().toLocaleDateString(),
+      body: "Good morning,\n\nHere’s your creator digest:\n\n• Today's Video: 'My Minimalist Desk Setup' goes live at 2 PM EST.\n• Social Media: Post Instagram story poll about next video topic.\n• Priorities: Finalize script for Friday's video, review thumbnail drafts from editor.\n• Channel Pulse: Yesterday's video gained 15.2k views, +5% CTR, 98.2% positive sentiment.\n• Today's Inspiration: 'The secret of getting ahead is getting started.' - Mark Twain\n\nLet's make some great content today!\n\nAiva",
       aivaActions: [
-        { action: 'Calendar sync', status: 'completed', details: 'Synced with your Google Calendar and flagged priority meetings' },
-        { action: 'Weather check', status: 'completed', details: 'Checked local weather forecast for your area' },
-        { action: 'Priority analysis', status: 'completed', details: 'Analyzed your tasks and emails to determine top priorities' }
+        { action: 'YouTube Analytics Sync', status: 'completed', details: 'Synced with your YouTube Studio and analyzed last video performance.' },
+        { action: 'Content Calendar Check', status: 'completed', details: 'Checked your content calendar for today’s schedule.' },
+        { action: 'Social Media Trend Analysis', status: 'completed', details: 'Analyzed trending topics in your niche.' }
       ],
       ctas: [
-        { label: 'View Calendar', action: 'calendar' },
-        { label: 'Show Tasks', action: 'tasks' },
-        { label: 'Prepare for Meetings', action: 'prepare' }
+        { label: 'View Content Calendar', action: 'calendar' },
+        { label: 'Draft Instagram Post', action: 'draft-social' },
+        { label: 'Review Script', action: 'review-script' }
       ]
     }
   },
   {
     id: 1,
-    time: '9:12 AM',
-    title: 'Email to Alice Smith drafted',
-    summary: "Subject: Q2 Marketing Report Review\nI've drafted a response to Alice's request for feedback on the Q2 marketing report...",
+    time: '10:20 AM',
+    title: 'Drafted promo email for new video',
+    summary: "Subject: NEW VIDEO: My Minimalist Desk Setup is LIVE! I've drafted a promotional email for your subscribers...",
     type: 'email',
     section: 'in_progress',
     date: new Date().toISOString(),
     details: {
-      from: 'alice.smith@example.com',
-      to: 'you@example.com',
-      subject: 'Q2 Marketing Report Review',
-      body: "Hi there,\n\nI've attached the Q2 marketing report for your review. Could you please provide feedback by Friday?\n\nThanks,\nAlice",
+      from: 'creator@example.com',
+      to: 'subscribers@example.com',
+      subject: 'NEW VIDEO: My Minimalist Desk Setup is LIVE!',
+      body: "Hey everyone,\n\nMy new video, 'My Minimalist Desk Setup for Maximum Productivity,' is now live on YouTube!\n\nIn this one, I'm sharing all the secrets to how I keep my workspace clean, focused, and ready for creative work. I think you're going to love it.\n\nWatch it here: [YouTube Link]\n\nLet me know what you think in the comments!\n\nBest,\n[Your Name]",
       aivaActions: [
-        { action: 'Draft response', status: 'completed', details: 'Created a draft response acknowledging receipt and promising review by Thursday.' },
-        { action: 'Add calendar reminder', status: 'completed', details: 'Added a reminder to review the report on Wednesday afternoon.' }
+        { action: 'Draft promotional email', status: 'completed', details: 'Created a draft based on your new video details.' },
+        { action: 'Identify target audience', status: 'completed', details: 'Segmented your mailing list for this announcement.' }
       ],
       ctas: [
-        { label: 'Send Response', action: 'send' },
-        { label: 'Edit Response', action: 'edit' },
-        { label: 'Schedule Meeting', action: 'schedule' }
+        { label: 'Send to Subscribers', action: 'send' },
+        { label: 'Edit Draft', action: 'edit' },
+        { label: 'Schedule for Later', action: 'schedule' }
       ]
     }
   },
   {
     id: 2,
-    time: '10:30 AM',
-    title: 'Calendar event created for team sync',
-    summary: "Aiva scheduled your weekly sync with the team for Friday at 2pm.",
+    time: '1:15 PM',
+    title: 'Scheduled collab meeting with @TechSource',
+    summary: "Aiva scheduled your collaboration planning session for next Tuesday at 4 PM.",
     type: 'calendar',
     section: 'recently_completed',
     date: new Date().toISOString(),
     details: {
       from: 'calendar-system@example.com',
-      to: 'you@example.com',
-      subject: 'Team Sync Scheduled',
-      body: "Your weekly team sync is scheduled for Friday at 2pm.\n\nAttendees: Alice, Bob, Carol",
+      to: 'creator@example.com',
+      subject: 'Collab Planning: You + @TechSource',
+      body: "Your collaboration planning meeting with @TechSource is scheduled for next Tuesday at 4 PM EST.\n\nAttendees: You, @TechSource",
       aivaActions: [
-        { action: 'Create event', status: 'completed', details: 'Added event to your calendar and invited attendees.' }
+        { action: 'Coordinate schedules', status: 'completed', details: 'Found a time that works for both you and @TechSource.' },
+        { action: 'Create calendar event', status: 'completed', details: 'Added event to your calendar and sent invites.' }
       ],
       ctas: [
         { label: 'View in Calendar', action: 'view-calendar' },
+        { label: 'Add Agenda', action: 'add-agenda' },
         { label: 'Reschedule', action: 'reschedule' }
       ]
     }
   },
   {
     id: 3,
-    time: '11:45 AM',
-    title: 'Slack message sent to Bob',
-    summary: "Sent project update to Bob in #project-x channel.",
+    time: '3:45 PM',
+    title: 'Sent Slack message to your editor',
+    summary: "Sent feedback on the latest thumbnail drafts to Jane in #design-feedback channel.",
     type: 'slack',
-    status: 'in_progress',
+    status: 'completed',
     date: new Date().toISOString(),
     details: {
       from: 'you@askaiva.app',
-      to: 'bob@example.com',
-      subject: 'Project X Update',
-      body: "Hey Bob,\n\nJust sent over the latest update on Project X in Slack.",
+      to: 'jane-editor@example.com',
+      subject: 'Thumbnail Feedback',
+      body: "Hey Jane, the new thumbnails are looking great. Let's go with version C, but can we bump up the saturation on the background? Thanks!",
       aivaActions: [
-        { action: 'Draft message', status: 'completed', details: 'Drafted update message for Bob.' },
-        { action: 'Send message', status: 'in_progress', details: 'Message is being delivered.' }
+        { action: 'Draft Slack message', status: 'completed', details: 'Drafted feedback message for your editor.' },
+        { action: 'Send message', status: 'completed', details: 'Message sent to Jane in #design-feedback.' }
       ],
       ctas: [
         { label: 'View in Slack', action: 'view-slack' }
@@ -97,54 +100,123 @@ const sampleBriefings = [
   },
   {
     id: 4,
-    time: '2:15 PM',
-    title: 'Follow-up email sent to Client XYZ',
-    summary: 'Subject: Project Timeline Update\nSent the requested timeline updates to the client with revised milestones.',
-    type: 'email',
-    section: 'recently_completed',
-    date: new Date(Date.now() - 86400000).toISOString(), // Yesterday
+    time: '5:00 PM',
+    title: 'Generated Weekly Channel Report',
+    summary: 'Created your weekly channel performance summary: +12k subscribers, 1.2M views, top video gained 250k views.',
+    type: 'report',
+    section: 'scheduled',
+    date: new Date().toISOString(),
     details: {
-      from: 'you@example.com',
-      to: 'client@xyz-corp.com',
-      subject: 'Project Timeline Update',
-      body: "Hi,\n\nHere is the updated project timeline as requested.\n\nBest,\nYou",
+      from: 'aiva-system@example.com',
+      to: 'creator@example.com',
+      subject: 'Your Weekly YouTube Channel Report',
+      body: "Here's your channel performance for the week:\n\n• Subscribers: +12,345\n• Views: 1,2M\n• Watch Time: 8.5M minutes\n• Top Video: 'My Morning Routine' (250k views)\n• Audience Retention: 62% average\n\nGreat work this week!",
       aivaActions: [
-        { action: 'Draft email', status: 'completed', details: 'Created a draft email with the updated project timeline.' },
-        { action: 'Attach timeline', status: 'completed', details: 'Attached the revised timeline PDF to the email.' },
-        { action: 'Send email', status: 'completed', details: 'Sent the email to the client.' }
+        { action: 'Analyze YouTube data', status: 'completed', details: 'Pulled and analyzed data from your YouTube Studio.' },
+        { action: 'Generate summary', status: 'completed', details: 'Summarized key metrics and highlights.' }
       ],
       ctas: [
-        { label: 'View in Gmail', action: 'view-email' },
-        { label: 'Create Follow-up', action: 'create-followup' },
-        { label: 'Add to CRM', action: 'add-to-crm' }
+        { label: 'View Full Report', action: 'view-report' },
+        { label: 'Set Next Week’s Goals', action: 'set-goals' },
+        { label: 'Share with Team', action: 'share-report' }
       ]
     }
   },
   {
     id: 5,
-    time: '4:30 PM',
-    title: 'Weekly report generated',
-    summary: 'Created your weekly productivity summary: 37 emails processed, 12 meetings scheduled, 5 tasks completed.',
-    type: 'report',
-    section: 'scheduled',
-    date: new Date(Date.now() - 86400000 * 3).toISOString(), // 3 days ago
+    time: '9:30 AM',
+    title: 'Sponsorship Inquiry from \'AudioPro\'',
+    summary: 'You received a new sponsorship inquiry from AudioPro regarding a potential collaboration for their new headphones.',
+    type: 'email',
+    section: 'in_progress',
+    date: new Date().toISOString(),
     details: {
-      from: 'aiva-system@example.com',
-      to: 'you@example.com',
-      subject: 'Your Weekly Productivity Report',
-      body: "Weekly Productivity Summary\n\nEmails:\n- Processed: 37\n- Responded: 24\n- Archived: 13\n\nMeetings:\n- Scheduled: 12\n- Attended: 10\n- Rescheduled: 2\n\nTasks:\n- Completed: 5\n- In Progress: 3\n- Overdue: 1\n\nTime saved this week: approximately 4.5 hours",
+      from: 'partnerships@audiopro.com',
+      to: 'creator@example.com',
+      subject: 'Sponsorship Opportunity: AudioPro & [Your Channel Name]',
+      body: "Hi [Your Name],\n\nMy name is Sarah and I'm with the partnerships team at AudioPro. We're launching a new line of studio headphones and are big fans of your content.\n\nWe'd love to explore a potential sponsorship for an upcoming video. Are you available for a brief chat next week?\n\nBest,\nSarah",
       aivaActions: [
-        { action: 'Analyze productivity', status: 'completed', details: 'Analyzed your email, calendar, and task activity for the week.' },
-        { action: 'Generate report', status: 'completed', details: 'Created a comprehensive productivity report with key metrics.' }
+        { action: 'Vetting', status: 'completed', details: 'Verified sender and company profile.' },
+        { action: 'Suggest Reply', status: 'in_progress', details: 'Drafting a reply to express interest and ask for details.' }
       ],
       ctas: [
-        { label: 'View Full Report', action: 'view-report' },
-        { label: 'Set Goals', action: 'set-goals' },
-        { label: 'Export to PDF', action: 'export-pdf' }
+        { label: 'Draft Reply', action: 'draft-reply' },
+        { label: 'Mark as Not Interested', action: 'not-interested' },
+        { label: 'View Company Website', action: 'view-website' }
       ]
     }
   },
-
+  {
+    id: 6,
+    time: '11:00 AM',
+    title: 'Comment Spotlight on \'Minimalist Desk Setup\'',
+    summary: 'A top comment from a long-time subscriber asks for a follow-up video on cable management. It has over 500 likes.',
+    type: 'social',
+    section: 'in_progress',
+    date: new Date().toISOString(),
+    details: {
+      from: 'youtube-comments@example.com',
+      to: 'creator@example.com',
+      subject: 'Comment Spotlight: Follow-up video idea!',
+      body: "Comment from @viewer123:\n\n'This setup is amazing! The one thing I struggle with is cable management. Any chance of a follow-up video dedicated to how you hide all your cables so effectively? Would be a lifesaver!'\n\nThis comment has high engagement and could be a great topic for your next video.",
+      aivaActions: [
+        { action: 'Comment Monitoring', status: 'completed', details: 'Identified a highly-liked comment with a content idea.' },
+        { action: 'Sentiment Analysis', status: 'completed', details: 'Comment sentiment is overwhelmingly positive.' }
+      ],
+      ctas: [
+        { label: 'Reply to Comment', action: 'reply-comment' },
+        { label: 'Add to Idea List', action: 'add-idea' },
+        { label: 'Dismiss', action: 'dismiss' }
+      ]
+    }
+  },
+  {
+    id: 7,
+    time: '4:00 PM',
+    title: 'Reminder: Livestream Today at 7 PM EST',
+    summary: 'Your weekly Q&A livestream is scheduled for tonight. Aiva has prepared a list of potential topics based on recent comments.',
+    type: 'calendar',
+    section: 'scheduled',
+    date: new Date().toISOString(),
+    details: {
+      from: 'aiva-calendar@example.com',
+      to: 'creator@example.com',
+      subject: 'Reminder: Livestream Today at 7 PM EST',
+      body: "Just a reminder about your livestream tonight.\n\nTopic: Weekly Q&A\nTime: 7:00 PM EST\nPlatform: YouTube Live\n\nSuggested talking points based on recent channel activity:\n- Your new desk setup (follow-up questions)\n- Thoughts on the latest 'TechPro' camera release\n- Your video production workflow\n\nGood luck!",
+      aivaActions: [
+        { action: 'Topic Generation', status: 'completed', details: 'Scanned recent comments and community posts for popular topics.' },
+        { action: 'Event Reminder', status: 'completed', details: 'Synced with your calendar to provide this reminder.' }
+      ],
+      ctas: [
+        { label: 'Go Live Checklist', action: 'go-live' },
+        { label: 'View Talking Points', action: 'view-topics' },
+        { label: 'Post Reminder on Socials', action: 'post-reminder' }
+      ]
+    }
+  },
+  {
+    id: 8,
+    time: '6:00 PM',
+    title: 'Confirmed Dinner Reservation at \'The Grove\'',
+    summary: "Aiva called 'The Grove' and confirmed your dinner reservation for 2 at 8:00 PM tonight.",
+    type: 'phone',
+    section: 'recently_completed',
+    date: new Date().toISOString(),
+    details: {
+      from: 'Aiva Assistant',
+      to: 'The Grove Restaurant',
+      subject: 'Confirmation of Dinner Reservation',
+      body: "Transcript Summary:\n- Aiva: 'Hi, I'm calling to confirm a reservation for [Your Name] for 2 people at 8 PM tonight.'\n- The Grove: 'Yes, we have that reservation. We'll see you at 8!'\n- Aiva: 'Thank you, goodbye.'",
+      aivaActions: [
+        { action: 'Make Phone Call', status: 'completed', details: 'Called The Grove at (555) 123-4567.' },
+        { action: 'Confirm Details', status: 'completed', details: 'Verbally confirmed reservation time and party size.' }
+      ],
+      ctas: [
+        { label: 'Get Directions', action: 'get-directions' },
+        { label: 'Call Restaurant', action: 'call-restaurant' }
+      ]
+    }
+  }
 ];
 
 // Type-specific colors and icons
@@ -178,6 +250,12 @@ const typeConfig = {
     bgColor: 'bg-amber-500/10',
     borderColor: 'border-amber-500/30',
     textColor: 'text-amber-400'
+  },
+  phone: {
+    icon: '📞',
+    bgColor: 'bg-green-500/10',
+    borderColor: 'border-green-500/30',
+    textColor: 'text-green-400'
   }
 };
 

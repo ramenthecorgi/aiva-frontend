@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 
 const ChatTaskView = ({ onClose, animationState }) => {
   const [chatMessages, setChatMessages] = useState([
-    { 
-      id: 1, 
-      sender: 'aiva', 
-      content: "Hi there! I'm Aiva. How can I help you today?",
+    {
+      id: 1,
+      sender: 'aiva',
+      content: "Hi there! I'm Aiva. How can I help with your content today?",
       timestamp: new Date().toISOString()
     }
   ]);
@@ -50,7 +50,7 @@ const ChatTaskView = ({ onClose, animationState }) => {
       const aivaResponse = {
         id: chatMessages.length + 2,
         sender: 'aiva',
-        content: `I'll help you with "${inputValue}". Let me create a task for this.`,
+        content: `I can help with that. I'll create a task to '${inputValue}'. You can review the details on the right.`,
         timestamp: new Date().toISOString()
       };
       
@@ -59,11 +59,11 @@ const ChatTaskView = ({ onClose, animationState }) => {
       // Update task preview based on user input
       setTaskPreview({
         title: inputValue.length > 50 ? `${inputValue.substring(0, 50)}...` : inputValue,
-        description: `Task created based on conversation with user on ${new Date().toLocaleDateString()}`,
+        description: `Based on our conversation, I've set up a task to help you with '${inputValue}'. I can help manage the research, drafting, and scheduling for this. Let me know what you need.`,
         status: 'draft',
         priority: 'medium',
         dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 1 week from now
-        tags: ['auto-generated']
+        tags: ['content-creation', 'new-idea']
       });
     }, 1000);
   };
