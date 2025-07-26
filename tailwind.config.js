@@ -14,7 +14,7 @@ module.exports = {
         },
       },
       animation: {
-        'fadeIn': 'fadeIn 0.2s ease-in-out',
+        fadeIn: 'fadeIn 0.5s ease-in-out',
         'slideIn': 'slideIn 0.3s ease-in-out',
         'slide-up': 'slide-up 0.4s ease-out',
         'slide-down': 'slide-down 0.4s ease-out',
@@ -38,8 +38,8 @@ module.exports = {
           '100%': { transform: 'translateY(20px)' },
         },
         bgShift: {
-          '0%, 100%': { backgroundPosition: '0% 0%' },
-          '50%': { backgroundPosition: '100% 100%' },
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
         },
       },
     },

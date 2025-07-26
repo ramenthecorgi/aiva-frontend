@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useIntersectionObserver } from '../hooks/useScrollAnimation';
 
 const faqs = [
   {
@@ -16,14 +17,15 @@ const faqs = [
 ];
 
 const FAQSection = () => {
-  const [openFAQ, setOpenFAQ] = useState(null);
+  const [openIndex, setOpenIndex] = useState(null);
+  const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.2 });
 
   const toggleFAQ = (index) => {
-    setOpenFAQ(openFAQ === index ? null : index);
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="bg-gradient-to-br from-[#0c2461] to-[#0a3d62] py-24">
+    <section ref={sectionRef} className="bg-gradient-to-br from-[#1e3799] to-[#0c2461] py-24">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-300 to-amber-300 bg-clip-text text-transparent mb-6">
@@ -34,19 +36,27 @@ const FAQSection = () => {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="max-w-3xl mx-auto">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-[rgba(10,61,98,0.3)] backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-amber-400/30">
+            <div 
+              key={index} 
+              className={`mb-6 bg-[rgba(10,61,98,0.3)] backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-600 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{
+                transitionDelay: `${index * 150}ms`
+              }}
+            >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-8 py-6 text-left flex justify-between items-center hover:bg-[rgba(10,61,98,0.2)] transition-colors"
               >
                 <h3 className="text-lg font-semibold text-white pr-4">{faq.question}</h3>
-                <div className={`text-amber-400 text-2xl transition-transform ${openFAQ === index ? 'rotate-45' : ''}`}>
+                <div className={`text-amber-400 text-2xl transition-transform ${openIndex === index ? 'rotate-45' : ''}`}>
                   +
                 </div>
               </button>
-              {openFAQ === index && (
+              {openIndex === index && (
                 <div className="px-8 pb-6">
                   <p className="text-white/80 leading-relaxed">{faq.answer}</p>
                 </div>

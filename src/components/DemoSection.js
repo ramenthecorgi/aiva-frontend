@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useIntersectionObserver } from '../hooks/useScrollAnimation';
 
 const demoScenarios = [
   {
@@ -65,9 +66,12 @@ const workflowSteps = [
 
 const DemoSection = () => {
   const [activeDemo, setActiveDemo] = useState("email");
+  const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.2 });
+
+  const activeScenario = demoScenarios.find(s => s.id === activeDemo);
 
   return (
-    <section id="demo" className="bg-gradient-to-br from-[#0a3d62] to-[#1e3799] py-24">
+    <section ref={sectionRef} className="bg-gradient-to-br from-[#0c2461] to-[#1e3799] py-24">
       <div className="max-w-screen-xl mx-auto px-6">
         {/* Demo Selector */}
         <div className="text-center mb-16">
@@ -79,16 +83,21 @@ const DemoSection = () => {
           </p>
           
           {/* Demo Tabs */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {demoScenarios.map((scenario) => (
+          <div className={`flex flex-wrap justify-center gap-4 mb-12 transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            {demoScenarios.map((scenario, index) => (
               <button
                 key={scenario.id}
                 onClick={() => setActiveDemo(scenario.id)}
                 className={`px-6 py-3 rounded-full font-semibold transition-all ${
                   activeDemo === scenario.id
-                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900'
-                    : 'bg-[rgba(10,61,98,0.3)] text-white/80 border border-white/20 hover:border-amber-400/50'
+                    ? 'bg-amber-400 text-navy-900'
+                    : 'bg-white/10 text-white hover:bg-white/20'
                 }`}
+                style={{
+                  transitionDelay: `${index * 100}ms`
+                }}
               >
                 {scenario.title}
               </button>
@@ -97,16 +106,17 @@ const DemoSection = () => {
         </div>
 
         {/* Active Demo */}
-        <div className="bg-[rgba(10,61,98,0.3)] backdrop-blur-xl border border-white/10 rounded-3xl p-8 mb-16">
-          {demoScenarios.map((scenario) => (
-            activeDemo === scenario.id && (
-              <div key={scenario.id}>
-                <h3 className="text-2xl font-bold text-white mb-4">{scenario.title}</h3>
-                <p className="text-white/80 mb-8">{scenario.description}</p>
+        <div className={`bg-[rgba(10,61,98,0.4)] backdrop-blur-xl border border-white/10 rounded-3xl p-8 max-w-4xl mx-auto transition-all duration-700 delay-300 min-h-[420px] ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+        }`}>
+          {activeScenario && (
+              <div key={activeScenario.id} className="animate-fadeIn">
+                <h3 className="text-2xl font-bold text-white mb-4">{activeScenario.title}</h3>
+                <p className="text-white/80 mb-8">{activeScenario.description}</p>
                 
                 {/* Demo Steps */}
                 <div className="space-y-4">
-                  {scenario.steps.map((step, idx) => (
+                  {activeScenario.steps.map((step, idx) => (
                     <div key={idx} className="flex items-start">
                       <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full flex items-center justify-center text-navy-900 font-bold text-sm mr-4 mt-1">
                         {idx + 1}
@@ -123,8 +133,7 @@ const DemoSection = () => {
                   </div>
                 </div>
               </div>
-            )
-          ))}
+          )} 
         </div>
       </div>
     </section>

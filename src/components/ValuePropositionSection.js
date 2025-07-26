@@ -1,107 +1,98 @@
 import React from "react";
+import { useAnimatedCounter, useIntersectionObserver } from '../hooks/useScrollAnimation';
 
-const valueProps = [
+const comparisonData = [
   {
-    icon: "⏰",
-    title: "Save 10+ Hours Weekly",
-    description: "Reclaim your time from repetitive tasks and focus on what drives results.",
-    benefit: "Worth $2,000+ per week for executives"
+    title: "Going it Alone",
+    cost: "Hidden costs in lost time & opportunity",
+    features: [
+      "Juggling administrative tasks manually",
+      "Inconsistent scheduling and follow-ups",
+      "Key details falling through the cracks",
+      "Productivity capped by personal bandwidth"
+    ],
+    highlight: false,
+    icon: "–"
   },
   {
-    icon: "📈",
-    title: "3x Productivity Boost",
-    description: "Handle more strategic work while Aiva manages the operational details.",
-    benefit: "Complete 3x more high-value tasks"
+    title: "Traditional EA",
+    cost: "$60k - $85k+ Annual Salary",
+    features: [
+      "Limited to 8-hour workdays",
+      "Handles one task at a time",
+      "Requires sick days and vacation",
+      "Risk of human error and miscommunication"
+    ],
+    highlight: false,
+    icon: "–"
   },
   {
-    icon: "🧘",
-    title: "Reduce Stress by 70%",
-    description: "Never miss important tasks or deadlines with Aiva's proactive management.",
-    benefit: "Better work-life balance guaranteed"
-  },
-  {
-    icon: "🚀",
-    title: "Instant Implementation",
-    description: "Get started in minutes, not months. No complex setup or training required.",
-    benefit: "ROI from day one"
+    title: "With Aiva",
+    cost: "Starts at a low monthly fee",
+    features: [
+      "24/7/365 availability, across time zones",
+      "Manages unlimited tasks in parallel",
+      "Perfect recall of every instruction",
+      "Proactive, autonomous, and always learning"
+    ],
+    highlight: true,
+    icon: "✓"
   }
 ];
 
-const beforeAfter = [
-  {
-    before: "Spending 2+ hours daily on email and scheduling",
-    after: "15 minutes reviewing Aiva's prioritized summaries"
-  },
-  {
-    before: "Missing important follow-ups and deadlines",
-    after: "Proactive reminders and automated follow-ups"
-  },
-  {
-    before: "Context switching between 10+ different tools",
-    after: "One intelligent assistant across all platforms"
-  },
-  {
-    before: "Working evenings to catch up on admin tasks",
-    after: "Leaving work on time with everything handled"
-  }
-];
+const ValuePropositionSection = () => {
+  const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.2 });
+  const [counterRef, animatedValue] = useAnimatedCounter(50000, 2500);
 
-const ValuePropositionSection = () => (
-  <section className="bg-gradient-to-br from-[#1e3799] to-[#0c2461] py-24">
-    <div className="max-w-screen-xl mx-auto px-6">
-      {/* Main Value Prop */}
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-300 to-amber-300 bg-clip-text text-transparent mb-6">
-          The ROI is Immediate
-        </h2>
-        <p className="text-xl text-white/90 font-light max-w-3xl mx-auto mb-8">
-          Stop losing money to inefficiency. Aiva pays for herself in the first week.
-        </p>
-        <div className="bg-[rgba(10,61,98,0.4)] backdrop-blur-xl border border-amber-400/30 rounded-3xl p-8 max-w-2xl mx-auto">
-          <div className="text-3xl font-extrabold text-amber-400 mb-2">$50,000+ Annual Value</div>
-          <div className="text-white/80">Average value created per professional through time savings and productivity gains</div>
+  return (
+    <section ref={sectionRef} className="bg-gradient-to-br from-[#1e3799] to-[#0c2461] py-24">
+      <div className="max-w-screen-xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-300 to-amber-300 bg-clip-text text-transparent mb-6">
+            A New Paradigm of Assistance
+          </h2>
+          <p className="text-xl text-white/90 font-light max-w-4xl mx-auto">
+            Stop juggling tasks and start multiplying your impact. See how Aiva stacks up against your other options.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+          {comparisonData.map((col, index) => (
+            <div 
+              key={col.title}
+              className={`transition-all duration-700 delay-${index * 200} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'} rounded-2xl p-8 h-full flex flex-col ${col.highlight ? 'bg-amber-400/10 border-2 border-amber-400' : 'bg-white/5 border border-white/10'}`}>
+              
+              <h3 className={`text-2xl font-bold mb-2 ${col.highlight ? 'text-amber-300' : 'text-white'}`}>{col.title}</h3>
+              <p className={`text-sm mb-6 ${col.highlight ? 'text-amber-200/80' : 'text-white/60'}`}>{col.cost}</p>
+
+              <div className="flex-grow">
+                <ul className="space-y-3 text-white/90">
+                  {col.features.map(feat => (
+                    <li key={feat} className="flex items-start">
+                      <span className={`mr-3 mt-1 ${col.highlight ? 'text-amber-400' : 'text-blue-400'}`}>{col.icon}</span>
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {col.highlight && (
+                <div ref={counterRef} className="mt-8 pt-6 border-t border-amber-400/20 text-center">
+                  <p className="text-lg text-amber-300 font-light mb-1">Delivering Over</p>
+                  <h3 className="text-5xl font-extrabold text-white">
+                    <span className="text-amber-400">$</span>
+                    {animatedValue.toLocaleString()}
+                    <span className="text-amber-400">+</span>
+                  </h3>
+                  <p className="text-lg text-amber-300 font-light mt-1">Annual Value</p>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
-
-
-
-      {/* Before/After Comparison */}
-      <div className="bg-[rgba(10,61,98,0.3)] backdrop-blur-xl border border-white/10 rounded-3xl p-8">
-        <h3 className="text-2xl font-bold text-white text-center mb-8">Your Day: Before vs After Aiva</h3>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Before */}
-          <div>
-            <h4 className="text-lg font-semibold text-red-300 mb-4 flex items-center">
-              <span className="mr-2">😰</span> Before Aiva
-            </h4>
-            <div className="space-y-3">
-              {beforeAfter.map((item, idx) => (
-                <div key={idx} className="flex items-start">
-                  <span className="text-red-400 mr-3 mt-1">✗</span>
-                  <span className="text-white/70 text-sm">{item.before}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* After */}
-          <div>
-            <h4 className="text-lg font-semibold text-green-300 mb-4 flex items-center">
-              <span className="mr-2">🎯</span> With Aiva
-            </h4>
-            <div className="space-y-3">
-              {beforeAfter.map((item, idx) => (
-                <div key={idx} className="flex items-start">
-                  <span className="text-green-400 mr-3 mt-1">✓</span>
-                  <span className="text-white/90 text-sm">{item.after}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default ValuePropositionSection;

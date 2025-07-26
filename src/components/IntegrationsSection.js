@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntersectionObserver } from '../hooks/useScrollAnimation';
 
 const integrations = [
   {
@@ -23,8 +24,11 @@ const integrations = [
   }
 ];
 
-const IntegrationsSection = () => (
-  <section className="bg-gradient-to-br from-[#1e3799] to-[#0c2461] py-24">
+const IntegrationsSection = () => {
+  const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+  
+  return (
+  <section ref={sectionRef} className="bg-gradient-to-br from-[#1e3799] to-[#0a3d62] py-24">
     <div className="max-w-screen-xl mx-auto px-6">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center bg-gradient-to-r from-blue-300 to-amber-300 bg-clip-text text-transparent mb-6">
         Works with the Tools You Use
@@ -33,9 +37,19 @@ const IntegrationsSection = () => (
         Aiva connects to your favorite tools to automate workflows and save you time. Here's how she helps different professionals:
       </p>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
         {integrations.map((integration, idx) => (
-          <div key={idx} className="bg-[rgba(10,61,98,0.3)] backdrop-blur-xl border border-white/10 rounded-3xl p-8 transition-all hover:scale-[1.02] hover:shadow-xl hover:border-amber-400/30">
+          <div 
+            key={idx} 
+            className={`bg-[rgba(10,61,98,0.3)] backdrop-blur-xl border border-white/10 rounded-3xl p-8 transition-all duration-700 ${
+              isVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-12'
+            }`}
+            style={{
+              transitionDelay: `${idx * 200}ms`
+            }}
+          >
             <h3 className="text-xl font-bold text-white mb-4">{integration.persona}</h3>
             
             {/* Tools */}
@@ -90,6 +104,7 @@ const IntegrationsSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default IntegrationsSection;

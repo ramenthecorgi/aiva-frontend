@@ -1,17 +1,40 @@
 import React from "react";
 import Typewriter from "typewriter-effect";
+import { useParallax } from '../hooks/useScrollAnimation';
 
-const HeroSection = () => (
+const HeroSection = () => {
+  const parallaxOffset = useParallax(0.3);
+  
+  return (
   <section className="pt-40 pb-24 text-center relative overflow-hidden">
     <div className="absolute inset-0 pointer-events-none">
-      <div className="absolute top-[20%] left-[10%] w-16 h-16 bg-gradient-to-br from-amber-400 to-blue-600 rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite] delay-0" />
-      <div className="absolute top-[60%] right-[15%] w-16 h-16 bg-gradient-to-br from-amber-400 to-blue-600 rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite] delay-[2s]" />
-      <div className="absolute bottom-[30%] left-[20%] w-16 h-16 bg-gradient-to-br from-amber-400 to-blue-600 rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite] delay-[4s]" />
+      <div 
+        className="absolute top-[20%] left-[10%] w-16 h-16 bg-gradient-to-br from-amber-400 to-blue-600 rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite] delay-0"
+        style={{ transform: `translateY(${parallaxOffset * 0.5}px)` }}
+      />
+      <div 
+        className="absolute top-[60%] right-[15%] w-16 h-16 bg-gradient-to-br from-amber-400 to-blue-600 rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite] delay-[2s]"
+        style={{ transform: `translateY(${parallaxOffset * 0.8}px)` }}
+      />
+      <div 
+        className="absolute bottom-[30%] left-[20%] w-16 h-16 bg-gradient-to-br from-amber-400 to-blue-600 rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite] delay-[4s]"
+        style={{ transform: `translateY(${parallaxOffset * 0.3}px)` }}
+      />
     </div>
     <div className="max-w-4xl mx-auto px-6 relative z-10">
       <div className="mb-6 flex items-center justify-center min-h-[7.5rem] md:min-h-[9.5rem]">
         <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-white via-blue-400 via-blue-300 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(10,61,98,0.3)] animate-[titleGlow_3s_ease-in-out_infinite_alternate]">
-          Meet Aiva: Your Hyper-Intelligent Executive Assistant
+          <Typewriter
+            onInit={(typewriter) => {
+              typewriter
+                .typeString('Meet Aiva: Your Hyper-Intelligent Executive Assistant')
+                .pauseFor(1000000)
+                .start();
+            }}
+            options={{
+              delay: 60,
+            }}
+          />
         </h1>
       </div>
       <p className="text-lg md:text-xl text-white/80 font-light max-w-2xl mx-auto mb-10">
@@ -29,6 +52,7 @@ const HeroSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default HeroSection;
