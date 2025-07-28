@@ -41,7 +41,7 @@ const HeroSection = () => {
         Aiva is more than just automation—she’s a digital executive assistant who learns how you work, anticipates your needs, and handles the tasks you shouldn’t have to. From scheduling and follow-ups to research and reminders, Aiva acts in your voice and style, freeing you to lead, create, and live.
       </p>
       <div className="flex flex-col md:flex-row justify-center gap-4 mt-6">
-        <a href="#signup" className="bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 font-extrabold py-4 px-10 rounded-full shadow-xl hover:scale-105 transition relative overflow-hidden">
+        <a href="mailto:team@askaiva.app" className="bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 font-extrabold py-4 px-10 rounded-full shadow-xl hover:scale-105 transition relative overflow-hidden">
           <span className="absolute inset-0 -top-1 -left-1 w-[200%] h-[200%] bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-45 transition-all group-hover:animate-[shimmer_0.6s_ease-in-out]" />
           <span className="relative z-10">Hire Aiva</span>
         </a>

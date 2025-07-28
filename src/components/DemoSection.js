@@ -71,7 +71,7 @@ const DemoSection = () => {
   const activeScenario = demoScenarios.find(s => s.id === activeDemo);
 
   return (
-    <section ref={sectionRef} className="bg-gradient-to-br from-[#0c2461] to-[#1e3799] py-24">
+    <section id="demo" ref={sectionRef} className="bg-gradient-to-br from-[#0c2461] to-[#1e3799] py-24">
       <div className="max-w-screen-xl mx-auto px-6">
         {/* Demo Selector */}
         <div className="text-center mb-16">

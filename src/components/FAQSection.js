@@ -68,7 +68,7 @@ const FAQSection = () => {
         {/* Still have questions CTA */}
         <div className="text-center mt-12">
           <p className="text-white/70 mb-4">Still have questions?</p>
-          <a href="mailto:support@askaiva.app" className="text-amber-400 hover:text-amber-300 font-semibold transition-colors">
+          <a href="mailto:team@askaiva.app" className="text-amber-400 hover:text-amber-300 font-semibold transition-colors">
             Get in touch with our team →
           </a>
         </div>
