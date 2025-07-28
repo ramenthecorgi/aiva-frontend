@@ -27,7 +27,7 @@ const HeroSection = () => {
           <Typewriter
             onInit={(typewriter) => {
               typewriter
-                .typeString('Meet Aiva: Your Hyper-Intelligent Executive Assistant')
+                .typeString('Meet Aiva: Your Personal Executive Assistant')
                 .pauseFor(1000000)
                 .start();
             }}

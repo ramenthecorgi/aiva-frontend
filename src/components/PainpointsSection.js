@@ -2,10 +2,14 @@ import React from "react";
 import { useIntersectionObserver } from '../hooks/useScrollAnimation';
 
 const personas = [
-  ['👔', 'Corporate & Tech Leadership', 'CxOs, VPs, Directors, PMs, EMs, HR Heads need to delegate routine tasks and focus on vision.'],
-  ['🏪', 'Small Biz & Self-Employed', 'Realtors, freelancers, online sellers, clinic owners need client comms, bookings, and follow-ups.'],
-  ['🎤', 'Influencers & Academics', 'Creators, speakers, professors need to manage outreach, content, and events.'],
-  ['👨‍👩‍👧‍👦', 'Working Parents', 'Dual-career households need to balance work and life with smart reminders and scheduling.'],
+  ['👔', 'Corporate & Tech Leadership', 
+   'CxOs, VPs, PMs, and HR leaders who need leverage — an always-on assistant to handle inbox triage, scheduling, and follow-ups, without the overhead of hiring or onboarding.'],
+
+   ['🎤', 'Creators & Independent Professionals', 
+    'Creators, consultants, speakers, and solo operators who rely on their reputation — and need help managing outreach, scheduling, and follow-ups without hiring a full-time assistant.'],
+   
+  ['👨‍👩‍👧‍👦', 'Working Parents', 
+   'Dual-career households balancing work and life — who benefit from a proactive assistant managing reminders, scheduling, and coordination behind the scenes.'],
 ];
 
 const PainpointsSection = () => {
