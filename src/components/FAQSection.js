@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     question: "How much does Aiva cost?",
-    answer: "Aiva pays for herself quickly through time savings. Our plans start at $99/month for professionals, with enterprise options available. Most users save 10+ hours weekly, making the ROI immediate. We offer a 14-day free trial with no credit card required."
+    answer: "Aiva pays for herself quickly through time savings. Our plans start at $20/month for professionals, with enterprise options available. Most users save 10+ hours weekly, making the ROI immediate. We offer a 14-day free trial with no credit card required."
   }
 ];
 
