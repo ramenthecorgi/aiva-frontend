@@ -5,8 +5,11 @@ export const getApiBaseUrl = () => {
     // Priority: Use REACT_APP_API_URL if explicitly set
     if (process.env.REACT_APP_API_URL) {
         return process.env.REACT_APP_API_URL;
-    } else {
-        console.error('REACT_APP_API_URL is not set in environment variables');
+    }
+
+    // Check if we should use production backend even in development
+    if (process.env.REACT_APP_USE_PRODUCTION_API === 'true') {
+        return 'https://aivaprototype.onrender.com';
     }
 
     // Fallback: Auto-detect based on current location
@@ -36,5 +39,6 @@ console.log(`🔧 API Configuration:`, {
     isDevelopment: isDevelopment(),
     isProduction: isProduction(),
     apiUrl: API_BASE_URL,
-    envOverride: process.env.REACT_APP_API_URL ? 'Yes' : 'No'
+    envOverride: process.env.REACT_APP_API_URL ? 'Yes' : 'No',
+    useProductionApi: process.env.REACT_APP_USE_PRODUCTION_API === 'true' ? 'Yes' : 'No'
 });

@@ -10,9 +10,15 @@ const OAuthCallback = () => {
     const [status, setStatus] = useState('processing');
     const [error, setError] = useState(null);
 
+    console.log('🔐 OAuthCallback component loaded');
+    console.log('🔐 Current URL:', window.location.href);
+    console.log('🔐 Search params:', Object.fromEntries(searchParams.entries()));
+
     useEffect(() => {
+        console.log('🔐 OAuthCallback useEffect triggered');
         const processCallback = async () => {
             try {
+                console.log('🔐 Starting processCallback');
                 setStatus('processing');
 
                 // Check for OAuth errors
@@ -30,10 +36,18 @@ const OAuthCallback = () => {
                 const email = searchParams.get('email');
                 const isNewUser = searchParams.get('new_user') === 'true';
 
-                if (!user_id || !email) {
-                    setError('Missing authentication parameters');
-                    setStatus('error');
-                    return;
+                console.log('🔐 OAuth callback page parameters:', {
+                    user_id,
+                    email,
+                    isNewUser,
+                    hasError: !!error
+                });
+
+                // If we have URL parameters, use them. Otherwise, let handleOAuthCallback handle it
+                if (user_id && email) {
+                    console.log('🔐 Found URL parameters, proceeding with callback');
+                } else {
+                    console.log('🔐 No URL parameters found, will try session-based auth');
                 }
 
                 // Process the OAuth callback

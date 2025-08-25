@@ -13,11 +13,13 @@ const GoogleLoginButton = ({
 
     const handleLogin = async () => {
         try {
+            console.log('🔐 GoogleLoginButton: Starting login process');
             setIsLoggingIn(true);
             await loginWithGoogle(returnUrl);
+            console.log('🔐 GoogleLoginButton: Login successful');
             if (onSuccess) onSuccess();
         } catch (error) {
-            console.error('Login error:', error);
+            console.error('🔐 GoogleLoginButton: Login error:', error);
             if (onError) onError(error);
         } finally {
             setIsLoggingIn(false);

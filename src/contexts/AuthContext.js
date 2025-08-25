@@ -238,7 +238,18 @@ export const AuthProvider = ({ children }) => {
             const email = urlParams.get('email');
             const token = urlParams.get('token');
 
+            console.log('🔐 OAuth callback parameters:', {
+                isNewUser,
+                user_id,
+                email,
+                hasToken: !!token,
+                isDevelopment: isDevelopment(),
+                apiUrl: API_BASE_URL
+            });
+
+            // Check if we have URL parameters (development mode with local backend)
             if (isDevelopment() && user_id && email && token) {
+                console.log('🔐 Using development mode with URL parameters');
                 // Development: Use URL parameters and token because cookies don't work across different ports
                 const userData = {
                     id: user_id,
@@ -250,11 +261,12 @@ export const AuthProvider = ({ children }) => {
                 localStorage.setItem('aiva_token', token);
                 dispatch({ type: AUTH_ACTIONS.SET_USER, payload: userData });
             } else {
-                // Production: Get session data from HTTP-only cookies
+                console.log('🔐 Using production mode or missing parameters, getting session from backend');
+                // Production or development with production backend: Get session data from HTTP-only cookies
                 try {
                     await getSession();
                 } catch (error) {
-                    console.error('Failed to get session, redirecting to login:', error);
+                    console.error('🔐 Failed to get session, redirecting to login:', error);
                     window.location.href = '/login';
                     return;
                 }
@@ -271,13 +283,15 @@ export const AuthProvider = ({ children }) => {
 
             // Redirect based on user type
             if (isNewUser) {
+                console.log('🔐 Redirecting new user to onboarding');
                 window.location.href = '/onboarding';
             } else {
                 const returnUrl = urlParams.get('return_url') || '/dashboard';
+                console.log('🔐 Redirecting existing user to:', returnUrl);
                 window.location.href = returnUrl;
             }
         } catch (error) {
-            console.error('Error handling OAuth callback:', error);
+            console.error('🔐 Error handling OAuth callback:', error);
             dispatch({
                 type: AUTH_ACTIONS.SET_ERROR,
                 payload: 'Authentication failed. Please try again.'
