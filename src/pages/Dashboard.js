@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
+import Sidebar from '../components/Sidebar';
 import { useAuth } from '../contexts/AuthContext';
 
 const Dashboard = () => {
@@ -44,8 +45,9 @@ const Dashboard = () => {
         <>
             <div className="fixed inset-0 z-[-1] bg-[radial-gradient(circle_at_20%_50%,#0a3d62_0%,transparent_50%),radial-gradient(circle_at_80%_20%,#0c2461_0%,transparent_50%),radial-gradient(circle_at_40%_80%,#1e3799_0%,transparent_50%)] animate-[bgShift_15s_ease-in-out_infinite]" />
 
-            <div className="min-h-screen pt-16 pb-16">
-                <div className="max-w-4xl mx-auto px-4">
+            <div className="min-h-screen pb-16">
+                <Sidebar />
+                <div className="ml-64 max-w-4xl mx-auto px-4 pt-20">
                     {/* Header */}
                     <div className="text-center mb-12">
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-blue-300 to-amber-300 bg-clip-text text-transparent mb-4">
@@ -107,13 +109,6 @@ const Dashboard = () => {
                         <h2 className="text-2xl font-bold text-blue-200 mb-6">Account Actions</h2>
 
                         <div className="flex flex-wrap gap-4">
-                            <button
-                                onClick={() => navigate('/settings')}
-                                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
-                            >
-                                Settings
-                            </button>
-
                             <button
                                 onClick={handleLogout}
                                 className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200"

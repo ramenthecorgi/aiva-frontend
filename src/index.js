@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import OAuthCallback from './pages/OAuthCallback';
 import Onboarding from './pages/Onboarding';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Settings from './pages/Settings';
 import TermsOfService from './pages/TermsOfService';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -35,6 +36,14 @@ root.render(
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Settings />
               </ProtectedRoute>
             }
           />
