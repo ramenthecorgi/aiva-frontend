@@ -14,6 +14,7 @@ const GoogleLoginButton = ({
     const handleLogin = async () => {
         try {
             console.log('🔐 GoogleLoginButton: Starting login process');
+            console.log('🔐 GoogleLoginButton: Return URL will be:', returnUrl);
             setIsLoggingIn(true);
             await loginWithGoogle(returnUrl);
             console.log('🔐 GoogleLoginButton: Login successful');

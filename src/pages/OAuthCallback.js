@@ -16,6 +16,10 @@ const OAuthCallback = () => {
 
     useEffect(() => {
         console.log('🔐 OAuthCallback useEffect triggered');
+        console.log('🔐 Current window.location:', window.location.href);
+        console.log('🔐 Current window.location.search:', window.location.search);
+        console.log('🔐 All URL parameters:', Object.fromEntries(searchParams.entries()));
+        
         const processCallback = async () => {
             try {
                 console.log('🔐 Starting processCallback');
@@ -26,6 +30,7 @@ const OAuthCallback = () => {
                 const errorMessage = searchParams.get('message');
 
                 if (error) {
+                    console.log('🔐 OAuth error detected:', error, errorMessage);
                     setError(errorMessage || 'Authentication failed');
                     setStatus('error');
                     return;
@@ -35,11 +40,15 @@ const OAuthCallback = () => {
                 const user_id = searchParams.get('user_id');
                 const email = searchParams.get('email');
                 const isNewUser = searchParams.get('new_user') === 'true';
+                const token = searchParams.get('token');
+                const returnUrl = searchParams.get('return_url');
 
                 console.log('🔐 OAuth callback page parameters:', {
                     user_id,
                     email,
                     isNewUser,
+                    hasToken: !!token,
+                    returnUrl,
                     hasError: !!error
                 });
 
@@ -51,28 +60,24 @@ const OAuthCallback = () => {
                 }
 
                 // Process the OAuth callback
+                console.log('🔐 Calling handleOAuthCallback...');
                 await handleOAuthCallback();
+                console.log('🔐 handleOAuthCallback completed successfully');
                 setStatus('success');
 
-                // The redirect will be handled by handleOAuthCallback
-                // This is just a fallback in case the redirect doesn't happen
-                setTimeout(() => {
-                    if (isNewUser) {
-                        navigate('/onboarding');
-                    } else {
-                        navigate('/dashboard');
-                    }
-                }, 2000);
+                // Note: The redirect is now handled by handleOAuthCallback
+                // We don't need a fallback redirect here as it might interfere
+                console.log('🔐 OAuth callback processing complete, redirect should happen automatically');
 
             } catch (error) {
-                console.error('OAuth callback error:', error);
+                console.error('🔐 OAuth callback error:', error);
                 setError('Failed to complete authentication. Please try again.');
                 setStatus('error');
             }
         };
 
         processCallback();
-    }, [handleOAuthCallback, navigate, searchParams]);
+    }, [handleOAuthCallback, searchParams]);
 
     const renderContent = () => {
         switch (status) {
@@ -110,13 +115,19 @@ const OAuthCallback = () => {
                         <p className="text-red-200 mb-6">{error}</p>
                         <div className="space-y-3">
                             <button
-                                onClick={() => navigate('/login')}
+                                onClick={() => {
+                                    console.log('🔐 User clicked "Try Again", redirecting to login');
+                                    navigate('/login');
+                                }}
                                 className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
                             >
                                 Try Again
                             </button>
                             <button
-                                onClick={() => navigate('/')}
+                                onClick={() => {
+                                    console.log('🔐 User clicked "Go Home", redirecting to home');
+                                    navigate('/');
+                                }}
                                 className="block w-full px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors duration-200"
                             >
                                 Go Home

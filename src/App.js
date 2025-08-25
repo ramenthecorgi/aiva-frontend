@@ -2,7 +2,6 @@
 // You should have Tailwind CSS configured in your project for these classes to work
 
 import React from 'react';
-import { AuthProvider } from './contexts/AuthContext';
 
 // Components
 import DemoSection from './components/DemoSection';
@@ -32,11 +31,7 @@ const LandingPage = () => {
 };
 
 const App = () => {
-  return (
-    <AuthProvider>
-      <LandingPage />
-    </AuthProvider>
-  );
+  return <LandingPage />;
 };
 
 export default App;

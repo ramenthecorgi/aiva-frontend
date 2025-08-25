@@ -15,6 +15,8 @@ const Login = () => {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated && !isLoading) {
+      console.log('🔐 User already authenticated, redirecting to:', from);
+      console.log('🔐 Full redirect URL:', window.location.origin + from);
       navigate(from, { replace: true });
     }
   }, [isAuthenticated, isLoading, navigate, from]);
@@ -26,7 +28,8 @@ const Login = () => {
 
   const handleLoginSuccess = () => {
     // The redirect will be handled by the OAuth callback
-    console.log('Login initiated successfully');
+    console.log('🔐 Login initiated successfully, OAuth flow started');
+    console.log('🔐 Return URL will be:', from);
   };
 
   const handleLoginError = (error) => {
