@@ -1,3 +1,6 @@
+// Fully Tailwind CSS converted version of the InboxAI landing page
+// You should have Tailwind CSS configured in your project for these classes to work
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
@@ -9,6 +12,8 @@ import reportWebVitals from './reportWebVitals';
 
 // Pages
 import Dashboard from './pages/Dashboard';
+import EmailTriage from './pages/EmailTriage';
+import GeneralSettings from './pages/GeneralSettings';
 import Login from './pages/Login';
 import OAuthCallback from './pages/OAuthCallback';
 import Onboarding from './pages/Onboarding';
@@ -44,6 +49,22 @@ root.render(
             element={
               <ProtectedRoute>
                 <Settings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings/general"
+            element={
+              <ProtectedRoute>
+                <GeneralSettings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings/email-triage"
+            element={
+              <ProtectedRoute>
+                <EmailTriage />
               </ProtectedRoute>
             }
           />

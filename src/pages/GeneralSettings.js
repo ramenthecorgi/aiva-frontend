@@ -4,14 +4,14 @@ import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
 import { useAuth } from '../contexts/AuthContext';
 
-const Settings = () => {
+const GeneralSettings = () => {
     const { user, logout, isAuthenticated, isLoading } = useAuth();
     const navigate = useNavigate();
 
     // Redirect to login if not authenticated
     React.useEffect(() => {
         if (!isLoading && !isAuthenticated) {
-            console.log('🔐 Settings: User not authenticated, redirecting to login');
+            console.log('🔐 GeneralSettings: User not authenticated, redirecting to login');
             navigate('/login');
         }
     }, [isLoading, isAuthenticated, navigate]);
@@ -51,39 +51,21 @@ const Settings = () => {
                     {/* Header */}
                     <div className="text-center mb-12">
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-blue-300 to-amber-300 bg-clip-text text-transparent mb-4">
-                            Settings Hub
+                            General Settings
                         </h1>
                         <p className="text-blue-100 text-lg">
-                            Choose a settings category to manage
+                            Manage your account preferences and general configuration
                         </p>
                     </div>
 
-                    {/* Settings Content */}
+                    {/* General Settings Content */}
                     <div className="bg-[rgba(10,61,98,0.4)] backdrop-blur-lg rounded-xl border border-white/10 shadow-[0_0_30px_rgba(10,61,98,0.4)] p-8">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {/* General Settings Card */}
-                            <div className="bg-[rgba(255,255,255,0.05)] rounded-lg p-6 border border-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer"
-                                onClick={() => navigate('/settings/general')}>
-                                <div className="text-center">
-                                    <div className="text-4xl mb-3">⚙️</div>
-                                    <h3 className="text-xl font-bold text-blue-200 mb-2">General Settings</h3>
-                                    <p className="text-blue-100 text-sm">
-                                        Account preferences and general configuration
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Email Triage Card */}
-                            <div className="bg-[rgba(255,255,255,0.05)] rounded-lg p-6 border border-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer"
-                                onClick={() => navigate('/settings/email-triage')}>
-                                <div className="text-center">
-                                    <div className="text-4xl mb-3">📧</div>
-                                    <h3 className="text-xl font-bold text-blue-200 mb-2">Email Triage</h3>
-                                    <p className="text-blue-100 text-sm">
-                                        Manage your email categorization and triage settings
-                                    </p>
-                                </div>
-                            </div>
+                        <div className="text-center py-12">
+                            <div className="text-6xl mb-4">⚙️</div>
+                            <h2 className="text-2xl font-bold text-blue-200 mb-4">General Settings</h2>
+                            <p className="text-blue-100 text-lg">
+                                This is a skeleton general settings page. Content will be added here in the future.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -94,4 +76,4 @@ const Settings = () => {
     );
 };
 
-export default Settings;
+export default GeneralSettings;
