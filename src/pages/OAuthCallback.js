@@ -31,7 +31,14 @@ const OAuthCallback = () => {
 
                 if (error) {
                     console.log('🔐 OAuth error detected:', error, errorMessage);
-                    setError(errorMessage || 'Authentication failed');
+                    
+                    // Handle specific error types
+                    if (error === 'email_not_allowed') {
+                        setError('This email address is not authorized to access the application. Please contact your administrator.');
+                    } else {
+                        setError(errorMessage || 'Authentication failed');
+                    }
+                    
                     setStatus('error');
                     return;
                 }

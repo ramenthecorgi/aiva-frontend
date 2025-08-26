@@ -47,12 +47,6 @@ const Header = () => {
                       Login
                     </Link>
                   )}
-                  {featureFlags.enableOnboarding && (
-                    <Link to="/login" className="bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 font-bold py-2 px-6 rounded-full shadow-lg hover:translate-y-[-3px] hover:shadow-xl transition relative overflow-hidden">
-                      <span className="absolute inset-0 left-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-500 hover:left-full" />
-                      <span className="relative z-10">Sign Up</span>
-                    </Link>
-                  )}
                 </>
               )}
             </>
