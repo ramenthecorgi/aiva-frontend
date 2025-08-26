@@ -204,20 +204,16 @@ const EmailTriageSettings = () => {
     return (
         <>
             <div className="space-y-8">
-                {/* Header Section */}
-                <div className="text-center">
-                    <h2 className="text-3xl font-bold text-blue-200 mb-4">Email Triage Categories</h2>
-                    <p className="text-blue-100 text-lg">
-                        Manage how your emails are automatically categorized and prioritized
-                    </p>
-                    {stats && (
-                        <div className="mt-4 flex justify-center space-x-6 text-sm text-blue-200">
+                {/* Stats Section */}
+                {stats && (
+                    <div className="text-center">
+                        <div className="flex justify-center space-x-6 text-sm text-blue-200">
                             <span>Total: {stats.total_categories}</span>
                             <span>Active: {stats.active_categories}</span>
                             <span>Inactive: {stats.inactive_categories}</span>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
 
                 {/* Create New Category Button */}
                 <div className="flex justify-center">
