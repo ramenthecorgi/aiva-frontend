@@ -67,37 +67,22 @@ export const AuthProvider = ({ children }) => {
         try {
             dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: true });
 
-            if (isDevelopment()) {
-                // Development: Check localStorage for user data and token since cookies don't work across different ports
-                const storedUser = localStorage.getItem('aiva_user');
-                const storedToken = localStorage.getItem('aiva_token');
+            // Check for stored token
+            const storedToken = localStorage.getItem('aiva_token');
+            const storedUser = localStorage.getItem('aiva_user');
 
-                if (storedUser && storedToken) {
-                    try {
-                        const userData = JSON.parse(storedUser);
-                        dispatch({ type: AUTH_ACTIONS.SET_USER, payload: userData });
-                    } catch (e) {
-                        console.error('Invalid stored user data:', e);
-                        localStorage.removeItem('aiva_user');
-                        localStorage.removeItem('aiva_token');
-                        dispatch({ type: AUTH_ACTIONS.CLEAR_USER });
-                    }
-                } else {
+            if (storedToken && storedUser) {
+                try {
+                    const userData = JSON.parse(storedUser);
+                    dispatch({ type: AUTH_ACTIONS.SET_USER, payload: userData });
+                } catch (e) {
+                    console.error('Invalid stored user data:', e);
+                    localStorage.removeItem('aiva_user');
+                    localStorage.removeItem('aiva_token');
                     dispatch({ type: AUTH_ACTIONS.CLEAR_USER });
                 }
             } else {
-                // Production: Use HTTP-only cookie-based authentication
-                const response = await fetch(`${API_BASE_URL}/oauth/status`, {
-                    credentials: 'include'
-                });
-
-                const data = await response.json();
-
-                if (data.authenticated && data.user) {
-                    dispatch({ type: AUTH_ACTIONS.SET_USER, payload: data.user });
-                } else {
-                    dispatch({ type: AUTH_ACTIONS.CLEAR_USER });
-                }
+                dispatch({ type: AUTH_ACTIONS.CLEAR_USER });
             }
         } catch (error) {
             console.error('Error checking auth status:', error);
@@ -119,9 +104,7 @@ export const AuthProvider = ({ children }) => {
             const oauthUrl = `${API_BASE_URL}/oauth/google/authorize?return_url=${encodeURIComponent(returnUrl)}&response_type=json`;
             console.log('🔐 Starting OAuth flow with URL:', oauthUrl);
 
-            const response = await fetch(oauthUrl, {
-                credentials: 'include'
-            });
+            const response = await fetch(oauthUrl);
 
             if (!response.ok) {
                 throw new Error('Failed to start OAuth flow');
@@ -145,68 +128,59 @@ export const AuthProvider = ({ children }) => {
     // Get user session
     const getSession = useCallback(async () => {
         try {
-            if (isDevelopment()) {
-                // Development: Try with stored token since cookies don't work across different ports
-                const storedToken = localStorage.getItem('aiva_token');
-                if (storedToken) {
-                    const response = await fetch(`${API_BASE_URL}/oauth/session`, {
-                        headers: {
-                            'Authorization': `Bearer ${storedToken}`
-                        },
-                        credentials: 'include'
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        dispatch({ type: AUTH_ACTIONS.SET_USER, payload: data.user });
-                        return data;
-                    }
-                }
-                
-                // If no token but user is already authenticated in state, return basic session data
-                if (state.user && state.isAuthenticated) {
-                    console.log('🔐 No token in localStorage but user is authenticated, returning basic session data');
-                    return {
-                        user: state.user,
-                        has_google_access: false, // We can't determine this without backend call
-                        oauth_status: null
-                    };
-                }
-                
-                throw new Error('No valid token in development mode');
-            } else {
-                // Production: Use HTTP-only cookie-based authentication
-                const response = await fetch(`${API_BASE_URL}/oauth/session`, {
-                    credentials: 'include'
-                });
-
-                if (!response.ok) {
-                    throw new Error('Not authenticated');
-                }
-
-                const data = await response.json();
-                dispatch({ type: AUTH_ACTIONS.SET_USER, payload: data.user });
-                return data;
+            console.log('🔐 Getting session from:', `${API_BASE_URL}/oauth/session`);
+            
+            // Get token from localStorage
+            const token = localStorage.getItem('aiva_token');
+            
+            if (!token) {
+                throw new Error('No token found');
             }
+            
+            console.log('🔐 Making session request with Authorization header');
+            const response = await fetch(`${API_BASE_URL}/oauth/session`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            console.log('🔐 Session response status:', response.status);
+
+            if (!response.ok) {
+                console.error('🔐 Session request failed with status:', response.status);
+                const errorText = await response.text();
+                console.error('🔐 Session error response:', errorText);
+                throw new Error('Not authenticated');
+            }
+
+            const data = await response.json();
+            console.log('🔐 Session data received:', data);
+            dispatch({ type: AUTH_ACTIONS.SET_USER, payload: data.user });
+            return data;
         } catch (error) {
             console.error('Error getting session:', error);
-            // Don't clear user state if we have a user but just can't get session data
-            if (!state.user) {
-                dispatch({ type: AUTH_ACTIONS.CLEAR_USER });
-            }
+            // Clear invalid tokens
+            localStorage.removeItem('aiva_token');
+            localStorage.removeItem('aiva_user');
+            dispatch({ type: AUTH_ACTIONS.CLEAR_USER });
             throw error;
         }
-    }, [state.user, state.isAuthenticated]);
+    }, []);
 
     // Logout user
     const logout = useCallback(async () => {
         try {
-            await fetch(`${API_BASE_URL}/oauth/logout`, {
-                method: 'POST',
-                credentials: 'include'
-            });
+            const token = localStorage.getItem('aiva_token');
+            if (token) {
+                await fetch(`${API_BASE_URL}/oauth/logout`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+            }
 
-            // Clear localStorage for development
+            // Clear localStorage
             localStorage.removeItem('aiva_user');
             localStorage.removeItem('aiva_token');
             dispatch({ type: AUTH_ACTIONS.CLEAR_USER });
@@ -230,9 +204,16 @@ export const AuthProvider = ({ children }) => {
     // Refresh session
     const refreshSession = useCallback(async () => {
         try {
+            const token = localStorage.getItem('aiva_token');
+            if (!token) {
+                throw new Error('No token to refresh');
+            }
+
             const response = await fetch(`${API_BASE_URL}/oauth/refresh`, {
                 method: 'POST',
-                credentials: 'include'
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
 
             if (response.ok) {
@@ -242,7 +223,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Error refreshing session:', error);
             // If refresh fails, user might need to login again
-            dispatch({ type: AUTH_ACTIONS.CLEAR_USER });
+            throw error;
         }
     }, []);
 
@@ -265,40 +246,28 @@ export const AuthProvider = ({ children }) => {
                 user_id,
                 email,
                 hasToken: !!token,
-                returnUrl,
-                isDevelopment: isDevelopment(),
-                apiUrl: API_BASE_URL
+                returnUrl
             });
 
-            // Check if we have URL parameters (development mode with local backend)
-            if (isDevelopment()) {
-                console.log('🔐 Using development mode with URL parameters');
-                // Development: Use URL parameters and token because cookies don't work across different ports
-                const userData = {
-                    id: user_id,
-                    email: email,
-                    name: email.split('@')[0] // Simple name extraction
-                };
-                console.log('🔐 Storing user data in localStorage:', userData);
-                // Store user data and token in localStorage for development
-                localStorage.setItem('aiva_user', JSON.stringify(userData));
-                localStorage.setItem('aiva_token', token);
-                dispatch({ type: AUTH_ACTIONS.SET_USER, payload: userData });
-                console.log('🔐 User data stored and state updated');
-            } else {
-                console.log('🔐 Using production mode or missing parameters, getting session from backend');
-                // Production or development with production backend: Get session data from HTTP-only cookies
-                try {
-                    await getSession();
-                    console.log('🔐 Session retrieved successfully');
-                } catch (error) {
-                    console.error('🔐 Failed to get session, redirecting to login:', error);
-                    const sessionErrorRedirectUrl = '/login';
-                    console.log('🔐 Redirecting to login due to session error:', sessionErrorRedirectUrl);
-                    window.location.href = sessionErrorRedirectUrl;
-                    return;
-                }
+            // Check if we have the required parameters
+            if (!user_id || !email || !token) {
+                console.error('🔐 Missing required OAuth parameters');
+                throw new Error('Missing authentication parameters');
             }
+
+            console.log('🔐 Using token-based authentication');
+            // Store user data and token in localStorage
+            const userData = {
+                id: user_id,
+                email: email,
+                name: email.split('@')[0] // Simple name extraction
+            };
+            
+            console.log('🔐 Storing user data in localStorage:', userData);
+            localStorage.setItem('aiva_user', JSON.stringify(userData));
+            localStorage.setItem('aiva_token', token);
+            dispatch({ type: AUTH_ACTIONS.SET_USER, payload: userData });
+            console.log('🔐 User data stored and state updated');
 
             // Clean up URL parameters
             console.log('🔐 Cleaning up URL parameters');
@@ -344,7 +313,7 @@ export const AuthProvider = ({ children }) => {
                 window.location.href = errorRedirectUrl;
             }, 2000);
         }
-    }, [getSession]);
+    }, []);
 
     // Clear error
     const clearError = useCallback(() => {
