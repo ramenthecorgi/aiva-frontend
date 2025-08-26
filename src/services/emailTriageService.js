@@ -2,10 +2,23 @@ import { API_BASE_URL } from '../config/api';
 
 // Helper function to get auth headers
 const getAuthHeaders = () => {
-    const token = localStorage.getItem('authToken');
+    // Check for both possible token keys
+    const token = localStorage.getItem('aiva_token') || localStorage.getItem('authToken');
+    console.log('🔑 API Service: Auth token from localStorage:', token ? 'Present' : 'Missing');
+    console.log('🔑 API Service: Available localStorage keys:', Object.keys(localStorage));
+
+    if (!token) {
+        throw new Error('No authentication token found. Please log in again.');
+    }
+
+    // Validate token format (should be a non-empty string)
+    if (typeof token !== 'string' || token.trim() === '') {
+        throw new Error('Invalid authentication token format. Please log in again.');
+    }
+
     return {
         'Content-Type': 'application/json',
-        'Authorization': token ? `Bearer ${token}` : '',
+        'Authorization': `Bearer ${token}`,
     };
 };
 

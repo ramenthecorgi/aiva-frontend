@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import EmailTriageSettings from '../components/EmailTriageSettings';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
 import { useAuth } from '../contexts/AuthContext';
@@ -36,7 +37,7 @@ const EmailTriage = () => {
         );
     }
 
-    // Don't render settings if not authenticated (will redirect)
+    // Don't render if not authenticated (will redirect)
     if (!isAuthenticated) {
         return null;
     }
@@ -47,27 +48,30 @@ const EmailTriage = () => {
 
             <div className="min-h-screen pb-16">
                 <Sidebar />
-                <div className="ml-64 max-w-4xl mx-auto px-4 pt-20">
+                <div className="ml-64 max-w-6xl mx-auto px-4 pt-20">
                     {/* Header */}
-                    <div className="text-center mb-12">
+                    <div className="text-center mb-8">
+                        <div className="flex items-center justify-center space-x-3 mb-4">
+                            <button
+                                onClick={() => navigate('/settings')}
+                                className="text-blue-300 hover:text-blue-200 transition-colors duration-200 flex items-center space-x-2"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                                <span>Back to Settings</span>
+                            </button>
+                        </div>
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-blue-300 to-amber-300 bg-clip-text text-transparent mb-4">
-                            Email Triage
+                            Email Triage Settings
                         </h1>
                         <p className="text-blue-100 text-lg">
-                            Manage your email categorization and triage settings
+                            Manage how your emails are automatically categorized and prioritized
                         </p>
                     </div>
 
                     {/* Email Triage Content */}
-                    <div className="bg-[rgba(10,61,98,0.4)] backdrop-blur-lg rounded-xl border border-white/10 shadow-[0_0_30px_rgba(10,61,98,0.4)] p-8">
-                        <div className="text-center py-12">
-                            <div className="text-6xl mb-4">📧</div>
-                            <h2 className="text-2xl font-bold text-blue-200 mb-4">Email Triage Settings</h2>
-                            <p className="text-blue-100 text-lg">
-                                This is a skeleton email triage page. Content will be added here in the future.
-                            </p>
-                        </div>
-                    </div>
+                    <EmailTriageSettings />
                 </div>
             </div>
 
