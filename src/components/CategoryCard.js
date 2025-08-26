@@ -7,25 +7,26 @@ const CategoryCard = ({
     onToggleActive,
     isEditing = false,
     isSystem = false,
-    readOnly = false
+    readOnly = false,
+    disabled = false
 }) => {
     const { name, description, is_active } = category;
 
     return (
         <div className={`bg-[rgba(255,255,255,0.05)] backdrop-blur-sm rounded-lg border p-4 transition-all duration-200 hover:shadow-lg ${is_active
-                ? 'border-blue-500/30 shadow-[0_0_20px_rgba(59,130,246,0.1)]'
-                : 'border-gray-500/30 opacity-60'
-            } ${isSystem ? 'border-purple-500/30' : ''}`}>
+            ? 'border-blue-500/30 shadow-[0_0_20px_rgba(59,130,246,0.1)]'
+            : 'border-gray-500/30 opacity-60'
+            } ${isSystem ? 'border-purple-500/30' : ''} ${disabled ? 'opacity-50 pointer-events-none' : ''}`}>
 
             {/* Header */}
             <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center space-x-2">
                     {/* Status Indicator */}
                     <div className={`w-3 h-3 rounded-full ${isSystem
-                            ? 'bg-purple-500'
-                            : is_active
-                                ? 'bg-green-500'
-                                : 'bg-gray-500'
+                        ? 'bg-purple-500'
+                        : is_active
+                            ? 'bg-green-500'
+                            : 'bg-gray-500'
                         }`} />
 
                     {/* Category Name */}
@@ -48,10 +49,11 @@ const CategoryCard = ({
                         {/* Toggle Active Button */}
                         <button
                             onClick={onToggleActive}
+                            disabled={disabled}
                             className={`p-1.5 rounded-md transition-colors duration-200 ${is_active
-                                    ? 'text-green-400 hover:bg-green-500/20'
-                                    : 'text-gray-400 hover:bg-gray-500/20'
-                                }`}
+                                ? 'text-green-400 hover:bg-green-500/20'
+                                : 'text-gray-400 hover:bg-gray-500/20'
+                                } disabled:opacity-50 disabled:cursor-not-allowed`}
                             title={is_active ? 'Deactivate category' : 'Activate category'}
                         >
                             {is_active ? (
@@ -68,7 +70,8 @@ const CategoryCard = ({
                         {/* Edit Button */}
                         <button
                             onClick={onEdit}
-                            className="p-1.5 text-blue-400 hover:bg-blue-500/20 rounded-md transition-colors duration-200"
+                            disabled={disabled}
+                            className="p-1.5 text-blue-400 hover:bg-blue-500/20 rounded-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                             title="Edit category"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,7 +82,8 @@ const CategoryCard = ({
                         {/* Delete Button */}
                         <button
                             onClick={onDelete}
-                            className="p-1.5 text-red-400 hover:bg-red-500/20 rounded-md transition-colors duration-200"
+                            disabled={disabled}
+                            className="p-1.5 text-red-400 hover:bg-red-500/20 rounded-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                             title="Delete category"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -101,10 +105,10 @@ const CategoryCard = ({
                 <div className="flex items-center justify-between text-xs">
                     {/* Status Text */}
                     <span className={`${isSystem
-                            ? 'text-purple-300'
-                            : is_active
-                                ? 'text-green-300'
-                                : 'text-gray-400'
+                        ? 'text-purple-300'
+                        : is_active
+                            ? 'text-green-300'
+                            : 'text-gray-400'
                         }`}>
                         {isSystem
                             ? 'System Category'
@@ -126,6 +130,15 @@ const CategoryCard = ({
                 <div className="absolute inset-0 bg-blue-500/10 border-2 border-blue-500/50 rounded-lg flex items-center justify-center">
                     <div className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                         Editing...
+                    </div>
+                </div>
+            )}
+
+            {/* Disabled Overlay */}
+            {disabled && (
+                <div className="absolute inset-0 bg-black/20 rounded-lg flex items-center justify-center">
+                    <div className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        Processing...
                     </div>
                 </div>
             )}

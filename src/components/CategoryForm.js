@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create' }) => {
+const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create', isSubmitting = false }) => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -67,7 +67,8 @@ const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create' }) => {
                     </h3>
                     <button
                         onClick={onCancel}
-                        className="text-gray-400 hover:text-white transition-colors duration-200"
+                        disabled={isSubmitting}
+                        className="text-gray-400 hover:text-white disabled:text-gray-600 disabled:cursor-not-allowed transition-colors duration-200"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -87,10 +88,9 @@ const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create' }) => {
                             id="name"
                             value={formData.name}
                             onChange={(e) => handleInputChange('name', e.target.value)}
-                            className={`w-full px-3 py-2 bg-[rgba(255,255,255,0.1)] border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.name ? 'border-red-500' : 'border-white/20'
-                                }`}
+                            disabled={isSubmitting || mode === 'edit'}
+                            className={`w-full px-3 py-2 bg-[rgba(255,255,255,0.1)] border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${errors.name ? 'border-red-500' : 'border-white/20'} disabled:opacity-50 disabled:cursor-not-allowed`}
                             placeholder="e.g., Work Projects"
-                            disabled={mode === 'edit'} // Name cannot be changed when editing
                         />
                         {errors.name && (
                             <p className="text-red-400 text-sm mt-1">{errors.name}</p>
@@ -110,8 +110,8 @@ const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create' }) => {
                             value={formData.description}
                             onChange={(e) => handleInputChange('description', e.target.value)}
                             rows={3}
-                            className={`w-full px-3 py-2 bg-[rgba(255,255,255,0.1)] border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${errors.description ? 'border-red-500' : 'border-white/20'
-                                }`}
+                            disabled={isSubmitting}
+                            className={`w-full px-3 py-2 bg-[rgba(255,255,255,0.1)] border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${errors.description ? 'border-red-500' : 'border-white/20'} disabled:opacity-50 disabled:cursor-not-allowed`}
                             placeholder="Describe what emails should be categorized here..."
                         />
                         {errors.description && (
@@ -130,12 +130,11 @@ const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create' }) => {
                         <button
                             type="button"
                             onClick={() => handleInputChange('is_active', !formData.is_active)}
-                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${formData.is_active ? 'bg-blue-600' : 'bg-gray-600'
-                                }`}
+                            disabled={isSubmitting}
+                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${formData.is_active ? 'bg-blue-600' : 'bg-gray-600'} disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
                             <span
-                                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${formData.is_active ? 'translate-x-6' : 'translate-x-1'
-                                    }`}
+                                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${formData.is_active ? 'translate-x-6' : 'translate-x-1'}`}
                             />
                         </button>
                     </div>
@@ -145,15 +144,24 @@ const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create' }) => {
                         <button
                             type="button"
                             onClick={onCancel}
-                            className="flex-1 px-4 py-2 border border-white/20 text-white rounded-lg hover:bg-white/10 transition-colors duration-200"
+                            disabled={isSubmitting}
+                            className="flex-1 px-4 py-2 border border-white/20 text-white rounded-lg hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
-                            className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200"
+                            disabled={isSubmitting}
+                            className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors duration-200 flex items-center justify-center"
                         >
-                            {mode === 'create' ? 'Create Category' : 'Update Category'}
+                            {isSubmitting ? (
+                                <>
+                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                    {mode === 'create' ? 'Creating...' : 'Updating...'}
+                                </>
+                            ) : (
+                                mode === 'create' ? 'Create Category' : 'Update Category'
+                            )}
                         </button>
                     </div>
                 </form>
