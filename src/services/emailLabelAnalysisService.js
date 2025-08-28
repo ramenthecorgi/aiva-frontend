@@ -59,15 +59,14 @@ class EmailLabelAnalysisService {
      */
     async createCategoriesFromLabels(selectedLabels) {
         try {
-            // This will use the existing /email/categories endpoint
+            // This will use the new bulk categories endpoint
             // Each label becomes a category with its AI-generated description
             const categories = selectedLabels.map(label => ({
                 name: label.label_name,
-                description: label.suggested_description,
-                is_active: true
+                description: label.suggested_description
             }));
 
-            const response = await fetch(`${API_BASE_URL}/email/categories`, {
+            const response = await fetch(`${API_BASE_URL}/email/categories/bulk`, {
                 method: 'POST',
                 headers: getAuthHeaders(),
                 body: JSON.stringify({

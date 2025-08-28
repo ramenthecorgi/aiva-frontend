@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import LabelAnalysisList from '../components/label-analysis/LabelAnalysisList';
 import LabelSelectionPanel from '../components/label-analysis/LabelSelectionPanel';
 import EmailPreviewModal from '../components/label-analysis/EmailPreviewModal';
-import { analyzeEmailLabels } from '../services/emailLabelAnalysisService';
+import { analyzeEmailLabels, createCategoriesFromLabels } from '../services/emailLabelAnalysisService';
 import Toast from '../components/Toast';
 
 const EmailLabelAnalysis = () => {
@@ -101,18 +101,32 @@ const EmailLabelAnalysis = () => {
         }
 
         try {
-            // TODO: Implement category creation using existing /email/categories endpoint
+            // Get the full label objects for selected labels
             const selectedLabelsArray = Array.from(analysisState.selectedLabels);
+            const selectedLabelObjects = analysisState.emailLabels.filter(label =>
+                selectedLabelsArray.includes(label.label_name)
+            );
 
-            // For now, show success message
-            showToast(`Selected ${selectedLabelsArray.length} labels for category creation`);
+            // Create categories using the service layer
+            const result = await createCategoriesFromLabels(selectedLabelObjects);
 
-            // Clear selection after successful application
+            // Show success message with details
+            showToast(`Successfully created ${selectedLabelObjects.length} email triage categories!`);
+
+            // Clear selection after successful creation
             setAnalysisState(prev => ({ ...prev, selectedLabels: new Set() }));
 
         } catch (error) {
             console.error('Error applying categories:', error);
-            showToast('Failed to apply selected categories. Please try again.', 'error');
+
+            // Provide more specific error messages
+            if (error.message.includes('already exists')) {
+                showToast('Some categories already exist. Please check your existing categories.', 'warning');
+            } else if (error.message.includes('authentication')) {
+                showToast('Authentication failed. Please log in again.', 'error');
+            } else {
+                showToast(`Failed to create categories: ${error.message}`, 'error');
+            }
         }
     };
 
@@ -152,7 +166,7 @@ const EmailLabelAnalysis = () => {
                         ) : (
                             <>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 20 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                 </svg>
                                 <span>Analyze Email Labels</span>
                             </>
