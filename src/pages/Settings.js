@@ -47,7 +47,7 @@ const Settings = () => {
 
             <div className="min-h-screen pb-16">
                 <Sidebar />
-                <div className="ml-64 max-w-4xl mx-auto px-4 pt-20">
+                <div className="ml-64 max-w-7xl mx-auto px-4 pt-20">
                     {/* Header */}
                     <div className="text-center mb-12">
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-blue-300 to-amber-300 bg-clip-text text-transparent mb-4">

@@ -13,7 +13,7 @@ const CategoryCard = ({
     const { name, description, is_active } = category;
 
     return (
-        <div className={`bg-[rgba(255,255,255,0.05)] backdrop-blur-sm rounded-lg border p-4 transition-all duration-200 hover:shadow-lg ${is_active
+        <div className={`bg-[rgba(255,255,255,0.05)] backdrop-blur-sm rounded-lg border p-4 transition-all duration-200 hover:shadow-lg max-h-64 overflow-hidden ${is_active
             ? 'border-blue-500/30 shadow-[0_0_20px_rgba(59,130,246,0.1)]'
             : 'border-gray-500/30 opacity-60'
             } ${isSystem ? 'border-purple-500/30' : ''} ${disabled ? 'opacity-50 pointer-events-none' : ''}`}>
@@ -75,7 +75,7 @@ const CategoryCard = ({
                             title="Edit category"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.586a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
                         </button>
 
@@ -95,10 +95,12 @@ const CategoryCard = ({
             </div>
 
             {/* Description */}
-            <p className={`text-sm leading-relaxed ${isSystem ? 'text-purple-100' : 'text-blue-100'
-                }`}>
-                {description}
-            </p>
+            <div className="flex-1 min-h-0">
+                <p className={`text-sm leading-relaxed overflow-y-auto max-h-20 ${isSystem ? 'text-purple-100' : 'text-blue-100'
+                    }`}>
+                    {description}
+                </p>
+            </div>
 
             {/* Footer */}
             <div className="mt-4 pt-3 border-t border-white/10">
@@ -137,7 +139,7 @@ const CategoryCard = ({
             {/* Disabled Overlay */}
             {disabled && (
                 <div className="absolute inset-0 bg-black/20 rounded-lg flex items-center justify-center">
-                    <div className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                         Processing...
                     </div>
                 </div>

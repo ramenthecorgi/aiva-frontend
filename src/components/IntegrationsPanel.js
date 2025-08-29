@@ -59,16 +59,16 @@ const IntegrationsPanel = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-8">
+    <div className="max-w-7xl mx-auto py-8">
       <h2 className="text-3xl font-bold mb-6 text-blue-100 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">Integrations</h2>
-      
+
       {/* Gmail Section */}
       <div className="bg-[rgba(255,255,255,0.1)] backdrop-blur-sm rounded-xl p-6 mb-8 border border-white/10 shadow-lg shadow-purple-900/10 transition-all hover:border-white/20">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center mr-4 shadow-md">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
-                <path fill="#EA4335" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                <path fill="#EA4335" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
               </svg>
             </div>
             <div>
@@ -79,7 +79,7 @@ const IntegrationsPanel = () => {
             </div>
           </div>
           <div>
-            <button 
+            <button
               onClick={handleGmailReconnect}
               className="px-4 py-1.5 text-sm bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 font-medium rounded-md hover:opacity-90 transition-opacity shadow-sm shadow-amber-900/20"
             >
@@ -87,7 +87,7 @@ const IntegrationsPanel = () => {
             </button>
           </div>
         </div>
-        
+
         {gmailConnected && (
           <>
             <div className="mb-5">
@@ -101,9 +101,9 @@ const IntegrationsPanel = () => {
                 ))}
               </div>
             </div>
-            
+
             <div className="flex items-center">
-              <button 
+              <button
                 onClick={handleSendTestEmail}
                 className="px-4 py-1.5 text-sm bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 font-medium rounded-md hover:opacity-90 transition-opacity mr-3 shadow-sm shadow-amber-900/20"
               >
@@ -116,14 +116,14 @@ const IntegrationsPanel = () => {
           </>
         )}
       </div>
-      
+
       {/* Slack Section */}
       <div className="bg-[rgba(255,255,255,0.1)] backdrop-blur-sm rounded-xl p-6 mb-8 border border-white/10 shadow-lg shadow-purple-900/10 transition-all hover:border-white/20">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center mr-4 shadow-md">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
-                <path fill="#4A154B" d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 3a6 6 0 1 1 0-12 6 6 0 0 1 0 12zM6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 3a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm12-3a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 3a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/>
+                <path fill="#4A154B" d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 3a6 6 0 1 1 0-12 6 6 0 0 1 0 12zM6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 3a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm12-3a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 3a6 6 0 1 1 0-12 6 6 0 0 1 0 12z" />
               </svg>
             </div>
             <div>
@@ -134,19 +134,18 @@ const IntegrationsPanel = () => {
             </div>
           </div>
           <div>
-            <button 
+            <button
               onClick={handleSlackToggle}
-              className={`px-3 py-1 text-sm ${
-                slackConnected 
-                  ? 'bg-red-500/80 hover:bg-red-500 text-white' 
+              className={`px-3 py-1 text-sm ${slackConnected
+                  ? 'bg-red-500/80 hover:bg-red-500 text-white'
                   : 'bg-gradient-to-r from-amber-400 to-amber-500 text-navy-900 font-medium'
-              } rounded-md hover:opacity-90 transition-opacity shadow-sm`}
+                } rounded-md hover:opacity-90 transition-opacity shadow-sm`}
             >
               {slackConnected ? 'Disconnect' : 'Connect'}
             </button>
           </div>
         </div>
-        
+
         {slackConnected && (
           <div>
             <div className="mb-4">
@@ -166,19 +165,19 @@ const IntegrationsPanel = () => {
                 ))}
               </select>
             </div>
-            
+
             <div className="text-sm text-amber-100/70">
               <p>Aiva will post updates and notifications to your selected Slack channel.</p>
             </div>
           </div>
         )}
       </div>
-      
+
       {/* Future Integrations Section */}
       <div className="bg-[rgba(10,61,98,0.3)] backdrop-blur-sm rounded-xl p-6 border border-white/5 shadow-md shadow-navy-900/10">
         <h3 className="text-xl font-semibold text-blue-100 mb-4">Coming Soon</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          
+
           {/* Microsoft Outlook Integration */}
           <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors h-full">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400/20 to-blue-500/20 flex items-center justify-center mr-3 shadow-sm">
@@ -191,7 +190,7 @@ const IntegrationsPanel = () => {
               <p className="text-xs text-amber-100/60">Email and calendar integration</p>
             </div>
           </div>
-          
+
           {/* Google Drive Integration */}
           <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors h-full">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400/20 to-blue-500/20 flex items-center justify-center mr-3 shadow-sm">
@@ -204,7 +203,7 @@ const IntegrationsPanel = () => {
               <p className="text-xs text-amber-100/60">File management and document organization</p>
             </div>
           </div>
-          
+
           {/* Zoom Integration */}
           <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors h-full">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400/20 to-blue-500/20 flex items-center justify-center mr-3 shadow-sm">
@@ -217,7 +216,7 @@ const IntegrationsPanel = () => {
               <p className="text-xs text-amber-100/60">Video meeting scheduling and management</p>
             </div>
           </div>
-          
+
           {/* Notion Integration */}
           <div className="flex items-center p-4 bg-[rgba(10,61,98,0.25)] rounded-xl hover:bg-[rgba(10,61,98,0.35)] transition-colors h-full">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400/20 to-blue-500/20 flex items-center justify-center mr-3 shadow-sm">

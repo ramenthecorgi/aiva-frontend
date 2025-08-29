@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './TeachAiva.css';
 
 // Sample data for preferences/instructions
@@ -198,7 +198,7 @@ const TeachAiva = () => {
   return (
     <>
       <div className={`main-content-container${backgroundBlurred ? ' app-blur-when-modal' : ''}`}>
-        <div className={showConversation ? "max-w-4xl mx-auto py-8 px-4" : "max-w-4xl mx-auto py-8 px-4"}>
+        <div className={showConversation ? "max-w-7xl mx-auto py-8 px-4" : "max-w-7xl mx-auto py-8 px-4"}>
           <h1 className="text-3xl font-bold text-amber-100 mb-6">Teach Aiva</h1>
           <p className="text-blue-100 mb-8">Customize how Aiva responds to you by setting your preferences below.</p>
           <div className="mb-10 max-w-3xl mx-auto">
@@ -241,7 +241,7 @@ const TeachAiva = () => {
           <PreferenceCard key={preference.id} preference={preference} isDefault={true} />
         ))}
       </div>
-    
+
       {showConversation && (
         <div className="fixed inset-0 z-50 flex items-center justify-center modal-perspective-container" onClick={closeConversation}>
           <div className="absolute inset-0 bg-navy-900/80 backdrop-blur-sm conversation-backdrop" />

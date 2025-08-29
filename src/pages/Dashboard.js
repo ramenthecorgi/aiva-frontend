@@ -180,7 +180,7 @@ const Dashboard = () => {
 
             <div className="min-h-screen pb-16">
                 <Sidebar onViewChange={handleViewChange} />
-                <div className="ml-64 max-w-4xl mx-auto px-4 pt-20">
+                <div className="ml-64 max-w-7xl mx-auto px-4 pt-20">
                     {/* View Navigation */}
                     {activeView !== 'dashboard' && (
                         <div className="mb-6">

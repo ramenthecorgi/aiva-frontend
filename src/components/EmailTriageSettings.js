@@ -245,7 +245,7 @@ const EmailTriageSettings = () => {
                             <p className="text-blue-100 text-sm">Create your first category to get started with email triage</p>
                         </div>
                     ) : (
-                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
                             {categories.map((category) => (
                                 <CategoryCard
                                     key={category.name}
@@ -269,7 +269,7 @@ const EmailTriageSettings = () => {
                         </svg>
                         System Categories (Reference Only)
                     </h3>
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
                         {defaultCategories.map((category) => (
                             <CategoryCard
                                 key={category.name}

@@ -19,8 +19,8 @@ const LabelSelectionPanel = ({
                             onClick={() => onBulkSelection(true)}
                             disabled={isAllSelected}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isAllSelected
-                                    ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                                ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                                : 'bg-blue-600 hover:bg-blue-700 text-white'
                                 }`}
                         >
                             Select All
@@ -30,8 +30,8 @@ const LabelSelectionPanel = ({
                             onClick={() => onBulkSelection(false)}
                             disabled={selectedCount === 0}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${selectedCount === 0
-                                    ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                                    : 'bg-gray-600 hover:bg-gray-700 text-white'
+                                ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                                : 'bg-gray-600 hover:bg-gray-700 text-white'
                                 }`}
                         >
                             Clear All
@@ -61,8 +61,8 @@ const LabelSelectionPanel = ({
                         onClick={onApplyCategories}
                         disabled={selectedCount === 0}
                         className={`px-6 py-3 rounded-lg font-medium transition-colors flex items-center space-x-2 ${selectedCount === 0
-                                ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                                : 'bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-600/20'
+                            ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                            : 'bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-600/20'
                             }`}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,21 +78,7 @@ const LabelSelectionPanel = ({
                 </div>
             </div>
 
-            {/* Progress Indicator */}
-            {selectedCount > 0 && (
-                <div className="mt-4">
-                    <div className="flex items-center justify-between text-sm text-blue-100 mb-2">
-                        <span>Selection Progress</span>
-                        <span>{Math.round((selectedCount / totalLabels) * 100)}%</span>
-                    </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2">
-                        <div
-                            className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                            style={{ width: `${(selectedCount / totalLabels) * 100}%` }}
-                        ></div>
-                    </div>
-                </div>
-            )}
+
         </div>
     );
 };

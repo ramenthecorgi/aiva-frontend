@@ -29,8 +29,8 @@ const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create', isSubmitt
             newErrors.name = 'Category name must be less than 50 characters';
         }
 
-        if (formData.description.trim().length > 200) {
-            newErrors.description = 'Description must be less than 200 characters';
+        if (formData.description.trim().length > 1000) {
+            newErrors.description = 'Description must be less than 1000 characters';
         }
 
         setErrors(newErrors);
@@ -109,7 +109,7 @@ const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create', isSubmitt
                             id="description"
                             value={formData.description}
                             onChange={(e) => handleInputChange('description', e.target.value)}
-                            rows={3}
+                            rows={6}
                             disabled={isSubmitting}
                             className={`w-full px-3 py-2 bg-[rgba(255,255,255,0.1)] border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${errors.description ? 'border-red-500' : 'border-white/20'} disabled:opacity-50 disabled:cursor-not-allowed`}
                             placeholder="Describe what emails should be categorized here..."
@@ -118,7 +118,7 @@ const CategoryForm = ({ category, onSubmit, onCancel, mode = 'create', isSubmitt
                             <p className="text-red-400 text-sm mt-1">{errors.description}</p>
                         )}
                         <p className="text-gray-400 text-xs mt-1">
-                            {formData.description.length}/200 characters
+                            {formData.description.length}/1000 characters
                         </p>
                     </div>
 

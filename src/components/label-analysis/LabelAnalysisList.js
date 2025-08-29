@@ -1,11 +1,12 @@
 import React from 'react';
 import LabelAnalysisCard from './LabelAnalysisCard';
 
-const LabelAnalysisList = ({ 
-    labels, 
-    selectedLabels, 
-    onLabelSelection, 
-    onPreviewEmails 
+const LabelAnalysisList = ({
+    labels,
+    selectedLabels,
+    onLabelSelection,
+    onPreviewEmails,
+    onDescriptionEdit
 }) => {
     if (!labels || labels.length === 0) {
         return (
@@ -26,7 +27,7 @@ const LabelAnalysisList = ({
                 </p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="space-y-4">
                 {labels.map((label) => (
                     <LabelAnalysisCard
                         key={label.label_id}
@@ -34,6 +35,7 @@ const LabelAnalysisList = ({
                         isSelected={selectedLabels.has(label.label_name)}
                         onSelectionChange={onLabelSelection}
                         onPreviewEmails={onPreviewEmails}
+                        onDescriptionEdit={onDescriptionEdit}
                     />
                 ))}
             </div>
@@ -41,7 +43,7 @@ const LabelAnalysisList = ({
             {labels.length > 0 && (
                 <div className="mt-8 text-center">
                     <p className="text-blue-100 text-sm">
-                        💡 <strong>Tip:</strong> Select the labels that best represent your email organization patterns. 
+                        💡 <strong>Tip:</strong> Select the labels that best represent your email organization patterns.
                         Each selected label will become an email triage category.
                     </p>
                 </div>

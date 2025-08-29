@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import EmailPreviewModal from '../components/label-analysis/EmailPreviewModal';
 import LabelAnalysisList from '../components/label-analysis/LabelAnalysisList';
 import LabelSelectionPanel from '../components/label-analysis/LabelSelectionPanel';
-import EmailPreviewModal from '../components/label-analysis/EmailPreviewModal';
-import { analyzeEmailLabels, createCategoriesFromLabels } from '../services/emailLabelAnalysisService';
 import Toast from '../components/Toast';
+import { useAuth } from '../contexts/AuthContext';
+import { analyzeEmailLabels, createCategoriesFromLabels } from '../services/emailLabelAnalysisService';
 
 const EmailLabelAnalysis = () => {
     const { user } = useAuth();
@@ -94,6 +94,18 @@ const EmailLabelAnalysis = () => {
         setPreviewLabel(null);
     };
 
+    const handleDescriptionEdit = (labelName, newDescription) => {
+        setAnalysisState(prev => ({
+            ...prev,
+            emailLabels: prev.emailLabels.map(label =>
+                label.label_name === labelName
+                    ? { ...label, suggested_description: newDescription }
+                    : label
+            )
+        }));
+        showToast(`Description updated for "${labelName}"`, 'success');
+    };
+
     const handleApplyCategories = async () => {
         if (analysisState.selectedLabels.size === 0) {
             showToast('Please select at least one label to add as a category', 'warning');
@@ -149,7 +161,7 @@ const EmailLabelAnalysis = () => {
                             Start Analysis
                         </h2>
                         <p className="text-blue-100 text-sm">
-                            Find email labels with >10 emails and recent activity (last 14 days)
+                            Find most actively used email labels
                         </p>
                     </div>
 
@@ -206,6 +218,7 @@ const EmailLabelAnalysis = () => {
                         selectedLabels={analysisState.selectedLabels}
                         onLabelSelection={handleLabelSelection}
                         onPreviewEmails={handlePreviewEmails}
+                        onDescriptionEdit={handleDescriptionEdit}
                     />
                 </div>
             )}
